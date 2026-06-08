@@ -8,23 +8,37 @@
     body {
       font-family: system-ui, -apple-system, sans-serif;
       line-height: 1.6;
-      color: #111;
+      color: #eeeeee;
+      background-color: #0b0c10;
       max-width: 600px;
-      margin: 15vh auto;
+      margin: 10vh auto;
       padding: 0 20px;
+      text-align: center;
     }
-    h1 {
-      font-size: 2rem;
-      letter-spacing: -0.02em;
+    .logo-container {
+      margin-bottom: 2.5rem;
+    }
+    .logo-img {
+      max-width: 220px;
+      height: auto;
     }
     .problem {
-      font-size: 1.25rem;
-      color: #444;
+      font-size: 1.35rem;
+      color: #c5c6c7;
       margin: 2rem 0;
+      text-align: left;
+    }
+    .problem strong {
+      color: #ffffff;
+    }
+    .cta {
+      margin-top: 3rem;
+      font-size: 1.1rem;
     }
     a {
-      color: #0066cc;
+      color: #66fcf1;
       text-decoration: none;
+      font-weight: 600;
     }
     a:hover {
       text-decoration: underline;
@@ -32,7 +46,10 @@
   </style>
 </head>
 <body>
-  <h1>Outlier Resilience</h1>
+
+  <div class="logo-container">
+    <img src="logo.jpg" alt="Outlier Resilience Logo" class="logo-img">
+  </div>
   
   <div class="problem">
     <strong>Your AI-based automated driving models are stuck in the deployment gap.</strong>
@@ -40,6 +57,7 @@
     You are running millions of miles in simulation, but you still cannot guarantee the system is safe for unseen edge cases. Meaningful failures are discovered too late, causing massive simulation overhead, delayed launches, and costly rework.
   </div>
 
-  <p>If you are actively trying to solve this, <a href="mailto:your-email@example.com">let's talk</a>.</p>
+  <p class="cta">If you are actively trying to solve this, <a href="mailto:outlierresilience@gmail.com">let's talk</a>.</p>
+
 </body>
 </html>
