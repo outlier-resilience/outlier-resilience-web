@@ -13,15 +13,15 @@
   
   <style>
     :root {
-      --bg-color: #040806; /* Very dark slate with a green/organic hint */
-      --card-bg: rgba(10, 16, 13, 0.75); /* Dark card with a green/organic tint */
-      --card-border: rgba(255, 255, 255, 0.05);
-      --text-main: #F3F6F4;
-      --text-muted: #9CA3AF;
-      --accent-green: #10B981; /* Emerald Green */
-      --accent-mint: #34D399; /* Mint Green */
-      --accent-gradient: linear-gradient(135deg, #059669 0%, #34D399 100%); /* Forest to Mint gradient */
-      --glow-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
+      --bg-color: #081c15; /* Deep organic forest green */
+      --card-bg: rgba(27, 67, 50, 0.35); /* Translucent dark pine card */
+      --card-border: rgba(82, 183, 136, 0.15); /* Soft sage green border */
+      --text-main: #e8f5e9; /* Light mint-tinted white for optimal contrast */
+      --text-muted: #a3b899; /* Organic sage green for muted text */
+      --accent-green: #52b788; /* Vibrant outdoors green */
+      --accent-mint: #74c69d; /* Fresh energy mint green */
+      --accent-gradient: linear-gradient(135deg, #2d6a4f 0%, #74c69d 100%); /* Deep pine to energetic mint gradient */
+      --glow-shadow: 0 0 30px rgba(82, 183, 136, 0.25);
     }
 
     * {
@@ -47,7 +47,7 @@
       left: -10%;
       width: 50%;
       height: 60%;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.07) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(82, 183, 136, 0.1) 0%, transparent 70%);
       z-index: -1;
       pointer-events: none;
     }
@@ -59,7 +59,7 @@
       right: -10%;
       width: 60%;
       height: 60%;
-      background: radial-gradient(circle, rgba(52, 211, 153, 0.07) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(116, 198, 157, 0.08) 0%, transparent 70%);
       z-index: -1;
       pointer-events: none;
     }
@@ -98,10 +98,10 @@
     .tagline-badge {
       display: inline-block;
       padding: 0.4rem 1rem;
-      background: rgba(16, 185, 129, 0.06);
-      border: 1px solid rgba(16, 185, 129, 0.2);
+      background: rgba(82, 183, 136, 0.08);
+      border: 1px solid rgba(82, 183, 136, 0.25);
       border-radius: 50px;
-      color: var(--accent-green);
+      color: var(--accent-mint);
       font-size: 0.85rem;
       font-weight: 600;
       margin-bottom: 2rem;
@@ -180,15 +180,15 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%);
+      background: linear-gradient(180deg, rgba(82, 183, 136, 0.08) 0%, transparent 100%);
       opacity: 0;
       transition: opacity 0.4s ease;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      border-color: rgba(16, 185, 129, 0.3);
-      box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.1);
+      border-color: rgba(82, 183, 136, 0.35);
+      box-shadow: 0 10px 30px -10px rgba(82, 183, 136, 0.18);
     }
 
     .card:hover::before {
@@ -280,17 +280,17 @@
       padding: 1.1rem 2.5rem;
       font-size: 1.1rem;
       font-weight: 700;
-      color: #040806;
+      color: #081c15;
       background: var(--accent-gradient);
       border-radius: 50px;
       text-decoration: none;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+      box-shadow: 0 4px 20px rgba(82, 183, 136, 0.3);
     }
 
     .cta-btn:hover {
       transform: scale(1.03);
-      box-shadow: 0 6px 30px rgba(16, 185, 129, 0.5);
+      box-shadow: 0 6px 30px rgba(82, 183, 136, 0.55);
     }
 
     .cta-btn svg {
