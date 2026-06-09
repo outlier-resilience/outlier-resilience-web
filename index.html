@@ -13,15 +13,15 @@
   
   <style>
     :root {
-      --bg-color: #06080F;
-      --card-bg: rgba(18, 22, 35, 0.7);
-      --card-border: rgba(255, 255, 255, 0.06);
-      --text-main: #F3F4F6;
+      --bg-color: #040806; /* Very dark slate with a green/organic hint */
+      --card-bg: rgba(10, 16, 13, 0.75); /* Dark card with a green/organic tint */
+      --card-border: rgba(255, 255, 255, 0.05);
+      --text-main: #F3F6F4;
       --text-muted: #9CA3AF;
-      --accent-cyan: #00F2FE;
-      --accent-blue: #4FACFE;
-      --accent-gradient: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%);
-      --glow-shadow: 0 0 30px rgba(0, 242, 254, 0.15);
+      --accent-green: #10B981; /* Emerald Green */
+      --accent-mint: #34D399; /* Mint Green */
+      --accent-gradient: linear-gradient(135deg, #059669 0%, #34D399 100%); /* Forest to Mint gradient */
+      --glow-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
     }
 
     * {
@@ -39,7 +39,7 @@
       position: relative;
     }
 
-    /* Ambient background glows */
+    /* Ambient background glows - Organic Green Energy theme */
     body::before {
       content: '';
       position: absolute;
@@ -47,7 +47,7 @@
       left: -10%;
       width: 50%;
       height: 60%;
-      background: radial-gradient(circle, rgba(0, 242, 254, 0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.07) 0%, transparent 70%);
       z-index: -1;
       pointer-events: none;
     }
@@ -59,7 +59,7 @@
       right: -10%;
       width: 60%;
       height: 60%;
-      background: radial-gradient(circle, rgba(79, 172, 254, 0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(52, 211, 153, 0.07) 0%, transparent 70%);
       z-index: -1;
       pointer-events: none;
     }
@@ -98,10 +98,10 @@
     .tagline-badge {
       display: inline-block;
       padding: 0.4rem 1rem;
-      background: rgba(0, 242, 254, 0.06);
-      border: 1px solid rgba(0, 242, 254, 0.2);
+      background: rgba(16, 185, 129, 0.06);
+      border: 1px solid rgba(16, 185, 129, 0.2);
       border-radius: 50px;
-      color: var(--accent-cyan);
+      color: var(--accent-green);
       font-size: 0.85rem;
       font-weight: 600;
       margin-bottom: 2rem;
@@ -180,15 +180,15 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(180deg, rgba(0, 242, 254, 0.05) 0%, transparent 100%);
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%);
       opacity: 0;
       transition: opacity 0.4s ease;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      border-color: rgba(0, 242, 254, 0.3);
-      box-shadow: 0 10px 30px -10px rgba(0, 242, 254, 0.1);
+      border-color: rgba(16, 185, 129, 0.3);
+      box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.1);
     }
 
     .card:hover::before {
@@ -280,17 +280,17 @@
       padding: 1.1rem 2.5rem;
       font-size: 1.1rem;
       font-weight: 700;
-      color: #06080F;
+      color: #040806;
       background: var(--accent-gradient);
       border-radius: 50px;
       text-decoration: none;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 4px 20px rgba(0, 242, 254, 0.3);
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
     }
 
     .cta-btn:hover {
       transform: scale(1.03);
-      box-shadow: 0 6px 30px rgba(0, 242, 254, 0.5);
+      box-shadow: 0 6px 30px rgba(16, 185, 129, 0.5);
     }
 
     .cta-btn svg {
@@ -343,7 +343,7 @@
         <img src="logo.jpg" alt="Outlier Resilience Logo" class="logo-img">
       </div>
       <div>
-        <a href="mailto:outlierresilience@gmail.com" style="color: var(--accent-cyan); font-weight: 600; text-decoration: none; font-size: 0.95rem;">Contact</a>
+        <a href="mailto:outlierresilience@gmail.com" style="color: var(--accent-green); font-weight: 600; text-decoration: none; font-size: 0.95rem;">Contact</a>
       </div>
     </header>
 
