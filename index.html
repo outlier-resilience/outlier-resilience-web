@@ -3,61 +3,418 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Outlier Resilience</title>
+  <meta name="description" content="Outlier Resilience - Addressing the core validation bottleneck in autonomous driving and AI-based steering models.">
+  <title>Outlier Resilience | The Autonomy Validation Gap</title>
+  
+  <!-- Load Premium Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <style>
+    :root {
+      --bg-color: #06080F;
+      --card-bg: rgba(18, 22, 35, 0.7);
+      --card-border: rgba(255, 255, 255, 0.06);
+      --text-main: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --accent-cyan: #00F2FE;
+      --accent-blue: #4FACFE;
+      --accent-gradient: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%);
+      --glow-shadow: 0 0 30px rgba(0, 242, 254, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       line-height: 1.6;
-      color: #eeeeee;
-      background-color: #0b0c10;
-      max-width: 600px;
-      margin: 10vh auto;
-      padding: 0 20px;
+      color: var(--text-main);
+      background-color: var(--bg-color);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient background glows */
+    body::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 50%;
+      height: 60%;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.08) 0%, transparent 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      bottom: 10%;
+      right: -10%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(circle, rgba(79, 172, 254, 0.08) 0%, transparent 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Navigation / Header */
+    header {
+      padding: 2rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-img {
+      max-height: 48px;
+      width: auto;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
+      transition: transform 0.3s ease;
+    }
+
+    .logo-img:hover {
+      transform: scale(1.05);
+    }
+
+    .tagline-badge {
+      display: inline-block;
+      padding: 0.4rem 1rem;
+      background: rgba(0, 242, 254, 0.06);
+      border: 1px solid rgba(0, 242, 254, 0.2);
+      border-radius: 50px;
+      color: var(--accent-cyan);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 6rem 0 4rem 0;
       text-align: center;
     }
-    .logo-container {
-      margin-bottom: 2.5rem;
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(180deg, #FFFFFF 0%, #D1D5DB 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .logo-img {
-      max-width: 220px;
-      height: auto;
+
+    .hero h1 span {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: var(--glow-shadow);
     }
-    .problem {
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin: 0 auto 3rem auto;
+      font-weight: 400;
+    }
+
+    /* The Problem Grid */
+    .problem-section {
+      padding: 4rem 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+      letter-spacing: -0.02em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(0, 242, 254, 0.05) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 242, 254, 0.3);
+      box-shadow: 0 10px 30px -10px rgba(0, 242, 254, 0.1);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-num {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+
+    .card h3 {
       font-size: 1.35rem;
-      color: #c5c6c7;
-      margin: 2rem 0;
-      text-align: left;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #FFF;
     }
-    .problem strong {
-      color: #ffffff;
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.975rem;
+      line-height: 1.6;
     }
-    .cta {
-      margin-top: 3rem;
+
+    /* Core Problem Deep Dive */
+    .problem-deep-dive {
+      padding: 4rem 2.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 24px;
+      margin-bottom: 6rem;
+      backdrop-filter: blur(20px);
+    }
+
+    .deep-dive-content {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .deep-dive-content h2 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+
+    .deep-dive-content p {
       font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      text-align: justify;
     }
-    a {
-      color: #66fcf1;
+
+    .deep-dive-content p strong {
+      color: #FFF;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 6rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .cta-section h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-section p {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 3rem auto;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.1rem 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #06080F;
+      background: var(--accent-gradient);
+      border-radius: 50px;
       text-decoration: none;
-      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 20px rgba(0, 242, 254, 0.3);
     }
-    a:hover {
-      text-decoration: underline;
+
+    .cta-btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 30px rgba(0, 242, 254, 0.5);
+    }
+
+    .cta-btn svg {
+      margin-left: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .cta-btn:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 0;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 0.85rem;
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+      .deep-dive-content h2 {
+        font-size: 1.75rem;
+      }
+      .cta-section h2 {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="logo-container">
-    <img src="logo.jpg" alt="Outlier Resilience Logo" class="logo-img">
-  </div>
-  
-  <div class="problem">
-    <strong>Your AI-based automated driving models are stuck in the deployment gap.</strong>
-    <br><br>
-    You are running millions of miles in simulation, but you still cannot guarantee the system is safe for unseen edge cases. Meaningful failures are discovered too late, causing massive simulation overhead, delayed launches, and costly rework.
-  </div>
+  <div class="container">
+    <header>
+      <div class="logo-container">
+        <!-- Using logo.jpg from repository -->
+        <img src="logo.jpg" alt="Outlier Resilience Logo" class="logo-img">
+      </div>
+      <div>
+        <a href="mailto:outlierresilience@gmail.com" style="color: var(--accent-cyan); font-weight: 600; text-decoration: none; font-size: 0.95rem;">Contact</a>
+      </div>
+    </header>
 
-  <p class="cta">If you are actively trying to solve this, <a href="mailto:outlierresilience@gmail.com">let's talk</a>.</p>
+    <main>
+      <section class="hero">
+        <span class="tagline-badge">The Autonomy Deployment Gap</span>
+        <h1>AI-Based Steering Models are Stuck in the <span>Simulation Loop</span></h1>
+        <p class="hero-subtitle">
+          You are running billions of simulation miles, but you still cannot guarantee that your neural network policies are safe in unseen edge cases. 
+        </p>
+      </section>
+
+      <section class="problem-section">
+        <h2 class="section-title">The Three Crucial Validation Bottlenecks</h2>
+        
+        <div class="grid">
+          <div class="card">
+            <div class="card-num">01</div>
+            <h3>The Simulation Paradox</h3>
+            <p>
+              Generating millions of random test scenarios increases compute overhead but does not identify the underlying structural stability of deep neural policies. You are collecting data, not guarantees.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-num">02</div>
+            <h3>The Edge-Case Blindspot</h3>
+            <p>
+              Continuous physical perturbations—like sudden contrast drops, glare events, or active snowfall—trigger unpredictable output steering deviations. Reactive log playbacks and scenario engines miss these boundary transitions entirely.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-num">03</div>
+            <h3>The Late-Discovery Penalty</h3>
+            <p>
+              Safety-critical model failures are discovered at the very end of the SIL/HIL testing cycle. This late-stage discovery forces developers into costly model redesigns, resetting timeline projections and delaying market launch.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="problem-deep-dive">
+        <div class="deep-dive-content">
+          <h2>Why Traditional Autonomy Tooling is Failing</h2>
+          <p>
+            Modern autonomous vehicle validation teams are overwhelmed by data. Standard workflows rely on massive, sampling-based scenario generation and log playback. These tools treat the neural network controller as a <strong>black box</strong>. They generate infinite variations of the environment but fail to evaluate the structural integrity or output boundaries of the policy itself.
+          </p>
+          <p>
+            When driving models encounter situations outside their training support or undergo sensor perturbations (e.g., lens occlusion, adverse weather), they exhibit non-linear steering anomalies. Finding these faults by chance requires an infinite search space.
+          </p>
+          <p>
+            To deploy with confidence, safety and validation engineers need a way to <strong>proactively audit and prioritize</strong> test scenarios and model stability before running physical or expensive simulation trials.
+          </p>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <h2>Are you actively struggling to validate and deploy end-to-end AI steering models?</h2>
+        <p>We are speaking with validation leads, simulation engineers, and safety directors at automotive OEMs and Tier-1 suppliers to study this bottleneck.</p>
+        <a href="mailto:outlierresilience@gmail.com" class="cta-btn">
+          Let's talk
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </section>
+    </main>
+
+    <footer>
+      &copy; 2026 Outlier Resilience LLC. All rights reserved.
+    </footer>
+  </div>
 
 </body>
 </html>
