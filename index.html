@@ -13,15 +13,15 @@
   
   <style>
     :root {
-      --bg-color: #081c15; /* Deep organic forest green */
-      --card-bg: rgba(27, 67, 50, 0.35); /* Translucent dark pine card */
-      --card-border: rgba(82, 183, 136, 0.15); /* Soft sage green border */
-      --text-main: #e8f5e9; /* Light mint-tinted white for optimal contrast */
-      --text-muted: #a3b899; /* Organic sage green for muted text */
-      --accent-green: #52b788; /* Vibrant outdoors green */
-      --accent-mint: #74c69d; /* Fresh energy mint green */
-      --accent-gradient: linear-gradient(135deg, #2d6a4f 0%, #74c69d 100%); /* Deep pine to energetic mint gradient */
-      --glow-shadow: 0 0 30px rgba(82, 183, 136, 0.25);
+      --bg-color: #06090e; /* Deep dark slate black */
+      --card-bg: rgba(13, 18, 24, 0.7); /* Sleek translucent card */
+      --card-border: rgba(82, 183, 136, 0.15); /* Soft glowing green border */
+      --text-main: #f3f4f6; /* Off-white for high readability */
+      --text-muted: #9ca3af; /* Cool grey for descriptions */
+      --accent-green: #52b788; /* Fresh mint green */
+      --accent-mint: #74c69d; /* Bright mint green */
+      --accent-gradient: linear-gradient(135deg, #40916c 0%, #74c69d 100%); /* Tech gradient */
+      --glow-shadow: 0 0 30px rgba(82, 183, 136, 0.1);
     }
 
     * {
@@ -39,15 +39,15 @@
       position: relative;
     }
 
-    /* Ambient background glows - Organic Green Energy theme */
+    /* Ambient glow elements */
     body::before {
       content: '';
       position: absolute;
       top: -10%;
-      left: -10%;
-      width: 50%;
-      height: 60%;
-      background: radial-gradient(circle, rgba(82, 183, 136, 0.1) 0%, transparent 70%);
+      left: 10%;
+      width: 60%;
+      height: 50%;
+      background: radial-gradient(circle, rgba(82, 183, 136, 0.06) 0%, transparent 70%);
       z-index: -1;
       pointer-events: none;
     }
@@ -55,71 +55,86 @@
     body::after {
       content: '';
       position: absolute;
-      bottom: 10%;
-      right: -10%;
-      width: 60%;
+      bottom: 5%;
+      right: 5%;
+      width: 50%;
       height: 60%;
-      background: radial-gradient(circle, rgba(116, 198, 157, 0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(116, 198, 157, 0.04) 0%, transparent 70%);
       z-index: -1;
       pointer-events: none;
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 0 2rem;
     }
 
-    /* Navigation / Header */
+    /* Centered spacious Header */
     header {
-      padding: 2rem 0;
+      padding: 5rem 0 3rem 0;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      justify-content: center;
     }
 
     .logo-container {
       display: flex;
+      justify-content: center;
       align-items: center;
+      margin-bottom: 2rem;
+      background: linear-gradient(135deg, #0e1213 0%, #1e2126 100%);
+      padding: 1.5rem 3.5rem;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 
+                  inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                  0 0 30px rgba(82, 183, 136, 0.03);
+      max-width: 440px;
+      width: 100%;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .logo-container:hover {
+      border-color: rgba(82, 183, 136, 0.2);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                  0 0 40px rgba(82, 183, 136, 0.08);
+      transform: translateY(-2px);
     }
 
     .logo-img {
-      max-height: 48px;
+      max-height: 140px;
       width: auto;
-      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
-      transition: transform 0.3s ease;
-    }
-
-    .logo-img:hover {
-      transform: scale(1.05);
+      display: block;
+      transition: transform 0.4s ease;
     }
 
     .tagline-badge {
       display: inline-block;
-      padding: 0.4rem 1rem;
-      background: rgba(82, 183, 136, 0.08);
-      border: 1px solid rgba(82, 183, 136, 0.25);
+      padding: 0.5rem 1.2rem;
+      background: rgba(82, 183, 136, 0.06);
+      border: 1px solid rgba(82, 183, 136, 0.2);
       border-radius: 50px;
       color: var(--accent-mint);
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 2rem;
-      letter-spacing: 0.05em;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      animation: pulse 3s infinite ease-in-out;
+      margin-top: 0.5rem;
     }
 
     /* Hero Section */
     .hero {
-      padding: 6rem 0 4rem 0;
+      padding: 2rem 0 3rem 0;
       text-align: center;
     }
 
     .hero h1 {
-      font-size: 3.5rem;
+      font-size: 3rem;
       font-weight: 800;
-      line-height: 1.15;
+      line-height: 1.2;
       letter-spacing: -0.03em;
       margin-bottom: 1.5rem;
       background: linear-gradient(180deg, #FFFFFF 0%, #D1D5DB 100%);
@@ -131,46 +146,45 @@
       background: var(--accent-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: var(--glow-shadow);
     }
 
     .hero-subtitle {
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       color: var(--text-muted);
-      max-width: 800px;
-      margin: 0 auto 3rem auto;
+      max-width: 700px;
+      margin: 0 auto;
       font-weight: 400;
+      line-height: 1.7;
     }
 
-    /* The Problem Grid */
+    /* Grid layout for Bottlenecks */
     .problem-section {
-      padding: 4rem 0;
+      padding: 2rem 0 5rem 0;
     }
 
     .section-title {
-      font-size: 2rem;
+      font-size: 1.75rem;
       font-weight: 700;
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
       letter-spacing: -0.02em;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-bottom: 4rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
     }
 
     .card {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 2.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+      padding: 2rem;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       overflow: hidden;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
     }
 
     .card::before {
@@ -180,15 +194,15 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(180deg, rgba(82, 183, 136, 0.08) 0%, transparent 100%);
+      background: linear-gradient(180deg, rgba(82, 183, 136, 0.05) 0%, transparent 100%);
       opacity: 0;
       transition: opacity 0.4s ease;
     }
 
     .card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(82, 183, 136, 0.35);
-      box-shadow: 0 10px 30px -10px rgba(82, 183, 136, 0.18);
+      transform: translateY(-4px);
+      border-color: var(--card-border);
+      box-shadow: 0 20px 40px -15px rgba(82, 183, 136, 0.1);
     }
 
     .card:hover::before {
@@ -196,101 +210,68 @@
     }
 
     .card-num {
-      font-size: 2.5rem;
+      font-size: 1.75rem;
       font-weight: 800;
       background: var(--accent-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       font-style: italic;
     }
 
     .card h3 {
-      font-size: 1.35rem;
+      font-size: 1.15rem;
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       color: #FFF;
     }
 
     .card p {
       color: var(--text-muted);
-      font-size: 0.975rem;
+      font-size: 0.9rem;
       line-height: 1.6;
-    }
-
-    /* Core Problem Deep Dive */
-    .problem-deep-dive {
-      padding: 4rem 2.5rem;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      border-radius: 24px;
-      margin-bottom: 6rem;
-      backdrop-filter: blur(20px);
-    }
-
-    .deep-dive-content {
-      max-width: 850px;
-      margin: 0 auto;
-    }
-
-    .deep-dive-content h2 {
-      font-size: 2.25rem;
-      font-weight: 800;
-      margin-bottom: 2rem;
-      text-align: center;
-      letter-spacing: -0.02em;
-    }
-
-    .deep-dive-content p {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-      text-align: justify;
-    }
-
-    .deep-dive-content p strong {
-      color: #FFF;
     }
 
     /* CTA Section */
     .cta-section {
       text-align: center;
-      padding: 6rem 0;
+      padding: 5rem 0;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .cta-section h2 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       font-weight: 800;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       letter-spacing: -0.02em;
     }
 
     .cta-section p {
       color: var(--text-muted);
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       max-width: 600px;
-      margin: 0 auto 3rem auto;
+      margin: 0 auto 2.5rem auto;
+      line-height: 1.6;
     }
 
     .cta-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 1.1rem 2.5rem;
-      font-size: 1.1rem;
+      padding: 1rem 2.25rem;
+      font-size: 1rem;
       font-weight: 700;
-      color: #081c15;
+      color: #06090e;
       background: var(--accent-gradient);
       border-radius: 50px;
       text-decoration: none;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 4px 20px rgba(82, 183, 136, 0.3);
+      box-shadow: 0 4px 20px rgba(82, 183, 136, 0.25);
     }
 
     .cta-btn:hover {
-      transform: scale(1.03);
-      box-shadow: 0 6px 30px rgba(82, 183, 136, 0.55);
+      transform: scale(1.02);
+      box-shadow: 0 6px 30px rgba(82, 183, 136, 0.45);
     }
 
     .cta-btn svg {
@@ -307,29 +288,27 @@
       padding: 3rem 0;
       text-align: center;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
-      color: rgba(255, 255, 255, 0.3);
-      font-size: 0.85rem;
-    }
-
-    /* Animations */
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
+      color: rgba(255, 255, 255, 0.25);
+      font-size: 0.8rem;
     }
 
     /* Responsive adjustments */
     @media (max-width: 768px) {
       .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.25rem;
       }
       .hero-subtitle {
-        font-size: 1.1rem;
-      }
-      .deep-dive-content h2 {
-        font-size: 1.75rem;
+        font-size: 1.05rem;
       }
       .cta-section h2 {
-        font-size: 2rem;
+        font-size: 1.75rem;
+      }
+      .logo-container {
+        padding: 1.25rem 2.5rem;
+        max-width: 320px;
+      }
+      .logo-img {
+        max-height: 100px;
       }
     }
   </style>
@@ -339,73 +318,55 @@
   <div class="container">
     <header>
       <div class="logo-container">
-        <!-- Using logo.jpg from repository -->
-        <img src="logo.jpg" alt="Outlier Resilience Logo" class="logo-img">
+        <!-- Using the dark logo matching our dark tech theme -->
+        <img src="logo_dark.png" alt="Outlier Resilience Logo" class="logo-img">
       </div>
-      <div>
-        <a href="mailto:outlierresilience@gmail.com" style="color: var(--accent-green); font-weight: 600; text-decoration: none; font-size: 0.95rem;">Contact</a>
-      </div>
+      <span class="tagline-badge">The Autonomy Validation Gap</span>
     </header>
 
     <main>
       <section class="hero">
-        <span class="tagline-badge">The Autonomy Deployment Gap</span>
-        <h1>AI-Based Steering Models are Stuck in the <span>Simulation Loop</span></h1>
+        <h1>AI Driving Models are Stuck in the <span>Simulation Loop</span></h1>
         <p class="hero-subtitle">
-          You are running billions of simulation miles, but you still cannot guarantee that your neural network policies are safe in unseen edge cases. 
+          Autonomy teams run billions of simulation miles, yet they cannot guarantee safety in unseen edge cases. Continuous real-world environments demand a shift from brute-force testing to proactive validation.
         </p>
       </section>
 
       <section class="problem-section">
-        <h2 class="section-title">The Three Crucial Validation Bottlenecks</h2>
+        <h2 class="section-title">The Core Validation Bottlenecks</h2>
         
         <div class="grid">
           <div class="card">
             <div class="card-num">01</div>
-            <h3>The Simulation Paradox</h3>
+            <h3>Scenario Overload</h3>
             <p>
-              Generating millions of random test scenarios increases compute overhead but does not identify the underlying structural stability of deep neural policies. You are collecting data, not guarantees.
+              Millions of random simulation miles create massive compute overhead without revealing the structural limits of AI driving policies. You are accumulating data, not safety.
             </p>
           </div>
 
           <div class="card">
             <div class="card-num">02</div>
-            <h3>The Edge-Case Blindspot</h3>
+            <h3>The Perception Gap</h3>
             <p>
-              Continuous physical perturbations—like sudden contrast drops, glare events, or active snowfall—trigger unpredictable output steering deviations. Reactive log playbacks and scenario engines miss these boundary transitions entirely.
+              Environmental degradations—like sudden glare, lens smudge, or active snow—silently break neural steering models. Standard log replays fail to catch these edge cases.
             </p>
           </div>
 
           <div class="card">
             <div class="card-num">03</div>
-            <h3>The Late-Discovery Penalty</h3>
+            <h3>The Redesign Penalty</h3>
             <p>
-              Safety-critical model failures are discovered at the very end of the SIL/HIL testing cycle. This late-stage discovery forces developers into costly model redesigns, resetting timeline projections and delaying market launch.
+              Discovering critical safety failures late in the SIL/HIL cycle causes months of delay. Safety needs to be prioritized at the dataset level, before running expensive trials.
             </p>
           </div>
         </div>
       </section>
 
-      <section class="problem-deep-dive">
-        <div class="deep-dive-content">
-          <h2>Why Traditional Autonomy Tooling is Failing</h2>
-          <p>
-            Modern autonomous vehicle validation teams are overwhelmed by data. Standard workflows rely on massive, sampling-based scenario generation and log playback. These tools treat the neural network controller as a <strong>black box</strong>. They generate infinite variations of the environment but fail to evaluate the structural integrity or output boundaries of the policy itself.
-          </p>
-          <p>
-            When driving models encounter situations outside their training support or undergo sensor perturbations (e.g., lens occlusion, adverse weather), they exhibit non-linear steering anomalies. Finding these faults by chance requires an infinite search space.
-          </p>
-          <p>
-            To deploy with confidence, safety and validation engineers need a way to <strong>proactively audit and prioritize</strong> test scenarios and model stability before running physical or expensive simulation trials.
-          </p>
-        </div>
-      </section>
-
       <section class="cta-section">
-        <h2>Are you actively struggling to validate and deploy end-to-end AI steering models?</h2>
-        <p>We are speaking with validation leads, simulation engineers, and safety directors at automotive OEMs and Tier-1 suppliers to study this bottleneck.</p>
+        <h2>Let's Solve the Autonomy Validation Gap</h2>
+        <p>We are partnering with validation leads, simulation teams, and safety directors at OEMs and Tier-1 suppliers to accelerate AI steering validation. Let's collaborate.</p>
         <a href="mailto:outlierresilience@gmail.com" class="cta-btn">
-          Let's talk
+          Collaborate with Us
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
       </section>
