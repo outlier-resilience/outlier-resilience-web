@@ -4,332 +4,230 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OutRes — The Validation Problem in Automated Driving</title>
-<meta name="description" content="Automated driving systems fail on the rare, the degraded, and the unseen. OutRes (Outlier Resilience LLC) is an applied research venture in Michigan working on the validation problem — how you demonstrate safety when the events that matter are too rare to measure.">
+<meta name="description" content="Automated driving systems fail on the rare mile, not the average one. OutRes (Outlier Resilience LLC) is an applied research venture in Michigan working on the validation problem.">
 <link rel="canonical" href="https://outlierresilience.com/">
 
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/assets/favicon.svg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/favicon.svg">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://outlierresilience.com/">
 <meta property="og:site_name" content="OutRes">
 <meta property="og:title" content="OutRes — The Validation Problem in Automated Driving">
-<meta property="og:description" content="You cannot test-drive your way to proof of safety. Notes on the validation bottleneck in automated driving.">
+<meta property="og:description" content="You cannot test-drive your way to proof of safety.">
 <meta property="og:image" content="https://outlierresilience.com/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="preload" href="/assets/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
 @font-face {
   font-family: 'Plus Jakarta Sans';
-  src: url('/assets/plus-jakarta-sans-latin.woff2') format('woff2');
+  src: url('assets/plus-jakarta-sans-latin.woff2') format('woff2');
   font-weight: 200 800;
-  font-style: normal;
   font-display: swap;
 }
 
 :root {
-  --bg:        #06090e;
-  --surface:   #0c1118;
-  --line:      #1b232e;
-  --line-soft: #141b24;
-  --ink:       #eef1f5;
-  --ink-2:     #b8c0cb;
-  --ink-3:     #78828f;
-  --accent:    #52b788;
-  --accent-dim:#2f6b50;
-  --measure:   68ch;
+  --bg:      #06090e;
+  --line:    #171e28;
+  --ink:     #eef1f5;
+  --ink-2:   #aeb7c2;
+  --ink-3:   #6f7987;
+  --accent:  #52b788;
+  --measure: 60ch;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink-2);
+  margin: 0; background: var(--bg); color: var(--ink-2);
   font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  font-size: 17px;
-  line-height: 1.65;
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
+  font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased;
 }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  * { transition: none !important; }
-}
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
-.wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 28px; }
-
-a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--accent-dim); transition: border-color .2s, color .2s; }
-a:hover { color: #fff; border-bottom-color: var(--accent); }
-a:focus-visible, .skip:focus { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-
-.skip { position: absolute; left: -9999px; }
-.skip:focus { left: 28px; top: 12px; z-index: 10; background: var(--surface); color: var(--ink); padding: 10px 16px; border: 1px solid var(--line); border-radius: 6px; }
-
-/* ---------- header ---------- */
-.masthead { border-bottom: 1px solid var(--line-soft); position: sticky; top: 0; background: rgba(6,9,14,.88); backdrop-filter: blur(8px); z-index: 5; }
-.masthead .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 74px; }
-
-.lockup { display: flex; align-items: center; gap: 16px; border: 0; }
-.lockup img { display: block; width: 169px; height: 27px; flex: none; }
-.lockup .full {
-  font-size: 9.5px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--ink-3); line-height: 1.4; border-left: 1px solid var(--line);
-  padding-left: 16px;
-}
-@media (max-width: 560px) { .lockup .full { display: none; } }
-
-.nav { display: flex; gap: 28px; font-size: 13.5px; font-weight: 500; letter-spacing: .04em; }
-.nav a { color: var(--ink-3); border: 0; }
-.nav a:hover { color: var(--ink); }
-@media (max-width: 640px) { .nav { display: none; } }
-
-/* ---------- hero ---------- */
-.hero { padding: 112px 0 88px; border-bottom: 1px solid var(--line-soft); }
-.eyebrow {
-  display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .2em;
-  text-transform: uppercase; color: var(--accent); margin-bottom: 30px;
-}
-.hero h1 {
-  margin: 0 0 28px;
-  font-size: clamp(2.15rem, 5.4vw, 3.5rem);
-  line-height: 1.08;
-  letter-spacing: -.03em;
-  font-weight: 800;
-  color: var(--ink);
-  max-width: 19ch;
-  text-wrap: balance;
-}
-.hero .lede { font-size: clamp(1.05rem, 1.9vw, 1.22rem); line-height: 1.62; max-width: var(--measure); margin: 0; }
-.hero .lede + .lede { margin-top: 20px; }
-
-/* ---------- sections ---------- */
-section { padding: 88px 0; border-bottom: 1px solid var(--line-soft); }
-.sec-head { display: flex; gap: 20px; align-items: baseline; margin-bottom: 34px; }
-.sec-num { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: var(--accent); flex: none; padding-top: 6px; font-variant-numeric: tabular-nums; }
-h2 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.05rem); line-height: 1.18; letter-spacing: -.022em; font-weight: 700; color: var(--ink); max-width: 30ch; text-wrap: balance; }
-h3 { margin: 0 0 10px; font-size: 1.02rem; font-weight: 700; letter-spacing: -.005em; color: var(--ink); }
-p { max-width: var(--measure); margin: 0 0 20px; }
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 26px; }
+a { color: var(--ink); text-decoration: none; border-bottom: 1px solid #2f6b50; }
+a:hover { border-bottom-color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+p { max-width: var(--measure); margin: 0 0 16px; }
 p:last-child { margin-bottom: 0; }
 strong { color: var(--ink); font-weight: 600; }
 
-/* ---------- KPI row (headline numbers — not a chart) ---------- */
-.kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); border-radius: 10px; overflow: hidden; margin: 8px 0 34px; }
-.kpi > div { background: var(--surface); padding: 26px 24px 24px; }
-.kpi .fig { font-size: clamp(2.1rem, 4.4vw, 2.9rem); font-weight: 800; line-height: 1; letter-spacing: -.035em; color: var(--ink); font-variant-numeric: tabular-nums; }
-.kpi .unit { font-size: .95rem; font-weight: 600; color: var(--ink-2); margin-top: 9px; }
-.kpi .note { font-size: .82rem; line-height: 1.5; color: var(--ink-3); margin-top: 7px; }
-
-/* ---------- pull quote ---------- */
-blockquote {
-  margin: 34px 0; padding: 4px 0 4px 26px; border-left: 2px solid var(--accent-dim);
-  max-width: var(--measure);
+/* header */
+header.top { border-bottom: 1px solid var(--line); }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 20px; }
+.lockup { display: flex; align-items: center; gap: 15px; border: 0; }
+.lockup img { display: block; width: 150px; height: 24px; }
+.lockup span {
+  font-size: 9px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ink-3); line-height: 1.4; border-left: 1px solid var(--line); padding-left: 15px;
 }
-blockquote p { font-size: 1.1rem; line-height: 1.55; color: var(--ink); font-weight: 500; margin-bottom: 12px; }
-blockquote cite { display: block; font-style: normal; font-size: .84rem; color: var(--ink-3); letter-spacing: .01em; }
+nav { display: flex; gap: 24px; font-size: 13px; }
+nav a { color: var(--ink-3); border: 0; }
+nav a:hover { color: var(--ink); }
+@media (max-width: 620px) { .lockup span, nav { display: none; } }
 
-/* ---------- feature list ---------- */
-.points { display: grid; grid-template-columns: 1fr; gap: 30px 44px; margin-top: 34px; }
-@media (min-width: 760px) { .points { grid-template-columns: 1fr 1fr; } }
-.points > div { border-top: 1px solid var(--line); padding-top: 18px; }
-.points p { font-size: .94rem; line-height: 1.6; margin: 0; color: var(--ink-2); }
+/* hero */
+/* longhand: .hero is also .wrap, so shorthand would clobber its horizontal padding */
+.hero { padding-top: 78px; padding-bottom: 62px; }
+.eyebrow { font-size: 10.5px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+h1 {
+  margin: 22px 0 20px; font-weight: 800; letter-spacing: -.03em; line-height: 1.07;
+  font-size: clamp(2rem, 5vw, 3.1rem); color: var(--ink); max-width: 18ch; text-wrap: balance;
+}
+.hero p { font-size: clamp(1rem, 1.7vw, 1.13rem); line-height: 1.55; }
 
-/* ---------- research ---------- */
-.papers { display: flex; flex-direction: column; gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); border-radius: 10px; overflow: hidden; margin-top: 30px; }
-.paper { background: var(--surface); padding: 22px 24px; display: flex; gap: 20px; align-items: baseline; flex-wrap: wrap; }
-.paper .venue { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); flex: none; min-width: 84px; }
-.paper .title { color: var(--ink); font-weight: 500; flex: 1 1 260px; }
-.status { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent-dim); border-radius: 100px; padding: 3px 11px; flex: none; }
+/* sections */
+section { padding: 58px 0; border-top: 1px solid var(--line); }
+h2 {
+  position: relative; margin: 0 0 20px; padding-left: 38px;
+  font-size: 1.32rem; font-weight: 700; letter-spacing: -.018em;
+  color: var(--ink); max-width: 40ch; text-wrap: balance;
+}
+h2 .n { position: absolute; left: 0; top: .12em; color: var(--accent); font-size: .72em; letter-spacing: .1em; }
 
-/* ---------- contact ---------- */
-.contact { padding: 88px 0 96px; border-bottom: 0; }
+/* headline figures — not a chart */
+.kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 26px 34px; margin: 26px 0; }
+.kpi .fig { font-size: 2.3rem; font-weight: 800; line-height: 1; letter-spacing: -.04em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.kpi .lab { font-size: .8rem; color: var(--ink-3); margin-top: 8px; line-height: 1.45; }
+
+blockquote { margin: 24px 0 0; padding-left: 20px; border-left: 2px solid #2f6b50; max-width: var(--measure); }
+blockquote p { color: var(--ink); font-weight: 500; margin-bottom: 8px; }
+blockquote cite { font-style: normal; font-size: .78rem; color: var(--ink-3); }
+
+/* terse point list */
+dl { margin: 22px 0 0; display: grid; grid-template-columns: 1fr; gap: 16px; max-width: var(--measure); }
+dt { color: var(--ink); font-weight: 600; font-size: .95rem; }
+dd { margin: 3px 0 0; font-size: .92rem; line-height: 1.55; }
+
+/* research rows */
+.papers { margin: 22px 0 0; }
+.papers div { display: flex; gap: 16px; align-items: baseline; padding: 13px 0; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.papers div:last-child { border-bottom: 1px solid var(--line); }
+.papers .v { font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); min-width: 72px; }
+.papers .t { color: var(--ink); font-size: .93rem; flex: 1 1 240px; }
+.papers .s { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+
+.refs { margin-top: 20px; font-size: .76rem; line-height: 1.55; color: var(--ink-3); max-width: var(--measure); }
+.refs a { color: var(--ink-3); border-bottom-color: var(--line); }
+
 .btn {
-  display: inline-block; margin-top: 8px; padding: 14px 26px;
-  background: var(--accent); color: #06090e; border: 0; border-radius: 6px;
-  font-weight: 700; font-size: .95rem; letter-spacing: .01em;
-  transition: background .2s;
+  display: inline-block; margin-top: 6px; padding: 12px 22px; background: var(--accent);
+  color: #06090e; border: 0; border-radius: 5px; font-weight: 700; font-size: .92rem;
 }
-.btn:hover { background: #6bcb9c; color: #06090e; }
+.btn:hover { background: #6bcb9c; }
 
-/* ---------- footer ---------- */
-footer { padding: 30px 0 44px; color: var(--ink-3); font-size: .82rem; }
-footer .wrap { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+footer { border-top: 1px solid var(--line); padding: 24px 0 36px; font-size: .78rem; color: var(--ink-3); }
+footer .wrap { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
 footer a { color: var(--ink-3); border: 0; }
-footer a:hover { color: var(--ink-2); }
-
-.refs { margin-top: 30px; font-size: .82rem; line-height: 1.6; color: var(--ink-3); max-width: var(--measure); }
-.refs em { margin-right: .3em; }
-.refs a { color: var(--ink-3); border-bottom: 1px solid var(--line); }
-.refs a:hover { color: var(--ink-2); }
 </style>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
 
-<header class="masthead">
+<header class="top">
   <div class="wrap">
     <a class="lockup" href="/" aria-label="OutRes — home">
-      <img src="/assets/logo-lockup.svg" width="169" height="27" alt="OutRes">
-      <span class="full">Outlier<br>Resilience</span>
+      <img src="assets/logo-lockup.svg" width="150" height="24" alt="OutRes">
+      <span>Outlier<br>Resilience</span>
     </a>
-    <nav class="nav">
-      <a href="#problem">The problem</a>
+    <nav>
+      <a href="#problem">Problem</a>
       <a href="#research">Research</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
 </header>
 
-<main id="main">
-
-  <div class="hero">
-    <div class="wrap">
-      <span class="eyebrow">Applied research · Michigan</span>
-      <h1>You cannot test-drive your way to proof of safety.</h1>
-      <p class="lede">Automated driving systems do not fail on the average mile. They fail on the rare one — the degraded sensor, the unfamiliar road surface, the condition nobody thought to put in the test plan.</p>
-      <p class="lede">That creates an uncomfortable problem. The events that determine whether a system is safe are precisely the events too rare to observe enough of. <strong>OutRes</strong> — Outlier Resilience LLC — is an early-stage applied research venture working on that problem.</p>
-    </div>
+<main>
+  <div class="hero wrap">
+    <span class="eyebrow">Applied research · Michigan</span>
+    <h1>You cannot test-drive your way to proof of safety.</h1>
+    <p>Automated driving systems fail on the rare mile, not the average one. The events that decide whether a system is safe are precisely the events too rare to observe enough of.</p>
+    <p><strong>OutRes</strong> — Outlier Resilience LLC — is an early-stage applied research venture working on that problem.</p>
   </div>
 
   <section id="problem">
     <div class="wrap">
-      <div class="sec-head">
-        <span class="sec-num">01</span>
-        <h2>The arithmetic of proving safety by driving</h2>
-      </div>
-
-      <p>The most-cited result in this field is not a breakthrough. It is a piece of arithmetic. In 2016 Nidhi Kalra and Susan Paddock at RAND asked how many miles an automated vehicle would need to accumulate to demonstrate statistically that it is safer than a human driver. The human benchmark is 1.09 fatalities per 100 million miles.</p>
+      <h2><span class="n">01</span>The arithmetic doesn't work</h2>
+      <p>Human drivers average 1.09 fatalities per 100 million miles. RAND calculated what it would take to prove an automated vehicle beats that.</p>
 
       <div class="kpi">
         <div>
           <div class="fig">275M</div>
-          <div class="unit">failure-free miles</div>
-          <div class="note">To show, at 95% confidence, a fatality rate at the human benchmark.</div>
+          <div class="lab">Failure-free miles, to show it at 95% confidence.</div>
         </div>
         <div>
           <div class="fig">12.5</div>
-          <div class="unit">years</div>
-          <div class="note">For a 100-vehicle fleet driving 24/7/365 at 25 mph to cover them.</div>
+          <div class="lab">Years for a 100-vehicle fleet driving 24/7 to cover them.</div>
         </div>
         <div>
           <div class="fig">8.8B</div>
-          <div class="unit">miles</div>
-          <div class="note">To estimate that rate to within 20% — roughly 400 years for the same fleet.</div>
+          <div class="lab">Miles to pin the rate to within 20% — about 400 years.</div>
         </div>
       </div>
 
       <blockquote>
-        <p>“This analysis shows that for fatalities it is not possible to test-drive autonomous vehicles to demonstrate their safety to any plausible standard, even if we assume perfect performance.”</p>
-        <cite>Kalra &amp; Paddock, <em>Driving to Safety</em>, RAND Corporation, 2016</cite>
+        <p>“It is not possible to test-drive autonomous vehicles to demonstrate their safety to any plausible standard, even if we assume perfect performance.”</p>
+        <cite>Kalra &amp; Paddock, <em>Driving to Safety</em>, RAND, 2016</cite>
       </blockquote>
-
-      <p>This is not an argument against road testing, and it is not a claim that anyone is doing it wrong. It is a statement about what miles can and cannot buy. Accumulating them demonstrates competence in conditions you have already seen. It does not bound the behaviour you have not seen — and past a certain point, adding miles stops changing the answer.</p>
     </div>
   </section>
 
-  <section id="standards">
+  <section>
     <div class="wrap">
-      <div class="sec-head">
-        <span class="sec-num">02</span>
-        <h2>The standards name the gap. They do not close it.</h2>
-      </div>
-
-      <p>Functional safety, as handled by ISO 26262, concerns hazards that arise when something breaks. But an automated driving system can injure someone with every component working exactly as designed — because the design was insufficient for the situation it met.</p>
-
-      <p><a href="https://www.iso.org/standard/77490.html" rel="noopener">ISO 21448:2022</a>, the Safety Of The Intended Functionality standard, exists for this case. It defines SOTIF as the absence of unreasonable risk arising from <strong>functional insufficiencies</strong> of the intended functionality or its implementation — no failure required. It is conventionally framed as four regions: scenarios that are known and safe, known and unsafe, unknown and safe, and the one that matters, <strong>unknown and unsafe</strong>.</p>
-
-      <p>The standard is clear that the engineering objective is to shrink that fourth region. What it cannot supply is a method for demonstrating how much of it you have actually eliminated. You are asked to provide evidence about scenarios you have not enumerated — which is, restated, the same problem as the previous section.</p>
+      <h2><span class="n">02</span>The standards name the gap, not the answer</h2>
+      <p>ISO 26262 covers hazards from things breaking. But a system can cause harm with every component working exactly as designed — because the design was insufficient for the situation it met.</p>
+      <p><a href="https://www.iso.org/standard/77490.html" rel="noopener">ISO 21448</a> (SOTIF) exists for that case: risk from <strong>functional insufficiencies</strong>, no failure required. It asks you to shrink the set of unknown-unsafe scenarios. It cannot tell you how much of that set you have actually eliminated.</p>
     </div>
   </section>
 
-  <section id="degradation">
+  <section>
     <div class="wrap">
-      <div class="sec-head">
-        <span class="sec-num">03</span>
-        <h2>The tail is not exotic. It is Tuesday in February.</h2>
-      </div>
-
-      <p>“Edge case” suggests something bizarre. In practice the conditions that degrade a perception stack are mundane, frequent, and regional — which is exactly why they are easy to under-weight in a test programme assembled somewhere sunny.</p>
-
-      <div class="points">
-        <div>
-          <h3>Degraded optics</h3>
-          <p>Low winter sun near the horizon, wet glare, spray from the vehicle ahead, a salted and smeared lens. The camera still returns an image. It returns a worse one, and nothing in the pipeline announces that.</p>
-        </div>
-        <div>
-          <h3>Vanishing road structure</h3>
-          <p>Lane markings under snow, slush, or wear. Models that learned to lean on painted lines inherit a dependency that the road does not always honour.</p>
-        </div>
-        <div>
-          <h3>Shifted appearance statistics</h3>
-          <p>A model trained largely on clear conditions meets a distribution it was not fitted to. Degradation here is often graceful-looking and quiet, which makes it worse, not better.</p>
-        </div>
-        <div>
-          <h3>Compounding, not isolated</h3>
-          <p>Real conditions arrive together — dusk and precipitation and a worn surface at once. Test matrices that vary one factor at a time systematically miss the combinations.</p>
-        </div>
-      </div>
+      <h2><span class="n">03</span>The tail is not exotic. It's Tuesday in February.</h2>
+      <p>The conditions that degrade a perception stack are mundane, frequent and regional — easy to under-weight in a test programme assembled somewhere sunny.</p>
+      <dl>
+        <div><dt>Degraded optics</dt><dd>Low winter sun, wet glare, spray, a salted lens. The camera still returns an image. It returns a worse one.</dd></div>
+        <div><dt>Vanishing road structure</dt><dd>Markings under snow or wear. Models that learned to lean on paint inherit a dependency the road does not always honour.</dd></div>
+        <div><dt>Shifted statistics</dt><dd>A model fitted to clear conditions meets a distribution it was not trained on. The failure is quiet, which makes it worse.</dd></div>
+        <div><dt>Compounding conditions</dt><dd>Dusk and precipitation and a worn surface, together. Matrices that vary one factor at a time miss the combinations.</dd></div>
+      </dl>
     </div>
   </section>
 
-  <section id="cost">
+  <section>
     <div class="wrap">
-      <div class="sec-head">
-        <span class="sec-num">04</span>
-        <h2>Finding out late is the expensive way to find out</h2>
-      </div>
-
-      <p>The structural cost is when the discovery happens. A weakness identified while the data set and model architecture are still open is a design decision. The same weakness surfacing during hardware-in-the-loop or on-road validation is a schedule event — it lands after the tooling, the integration, and the test programme have been built around the assumption that it was not there.</p>
-
-      <p>This is the ordinary logic of the V-model, and it is not news to anyone who has run a validation programme. It is worth stating plainly because it sets what a useful contribution to this field would have to do: <strong>move evidence earlier</strong>, and make it about the conditions you have not sampled rather than the ones you have.</p>
+      <h2><span class="n">04</span>Finding out late is the expensive way</h2>
+      <p>Early, a weakness is a design decision. Surfacing in hardware-in-the-loop or on-road validation, the same weakness is a schedule event — the tooling and the test programme were built around its absence.</p>
+      <p>Which sets the bar for a useful contribution: <strong>move the evidence earlier</strong>, and make it about the conditions you have not sampled.</p>
     </div>
   </section>
 
   <section id="research">
     <div class="wrap">
-      <div class="sec-head">
-        <span class="sec-num">05</span>
-        <h2>Research</h2>
-      </div>
-
-      <p>We are an applied research venture, and our position is that claims in this area should arrive as papers with methods attached, not as marketing. Work is in preparation. It will be posted here as it becomes available, alongside the preprints.</p>
-
+      <h2><span class="n">05</span>Research</h2>
+      <p>Claims in this area should arrive as papers with methods attached. Work is in preparation and will be posted here.</p>
       <div class="papers">
-        <div class="paper">
-          <span class="venue">IEEE ITSC</span>
-          <span class="title">Formal verification of end-to-end steering under adverse weather perturbation</span>
-          <span class="status">In preparation</span>
-        </div>
-        <div class="paper">
-          <span class="venue">SAE WCX</span>
-          <span class="title">Safety standards and assurance for automated driving in winter conditions</span>
-          <span class="status">In preparation</span>
-        </div>
+        <div><span class="v">IEEE ITSC</span><span class="t">Formal verification of end-to-end steering under adverse weather perturbation</span><span class="s">In preparation</span></div>
+        <div><span class="v">SAE WCX</span><span class="t">Safety standards and assurance for automated driving in winter conditions</span><span class="s">In preparation</span></div>
       </div>
-
       <p class="refs">
-        References —
-        Kalra, N. &amp; Paddock, S. M. (2016). <em>Driving to Safety: How Many Miles of Driving Would It Take to Demonstrate Autonomous Vehicle Reliability?</em> RAND Corporation, RR-1478-RC. <a href="https://www.rand.org/pubs/research_reports/RR1478.html" rel="noopener">rand.org</a> ·
-        ISO 21448:2022, <em>Road vehicles — Safety of the intended functionality</em>. <a href="https://www.iso.org/standard/77490.html" rel="noopener">iso.org</a>
+        Kalra, N. &amp; Paddock, S. M. (2016). <em>Driving to Safety.</em> RAND, RR-1478-RC. <a href="https://www.rand.org/pubs/research_reports/RR1478.html" rel="noopener">rand.org</a> ·
+        ISO 21448:2022, <em>Road vehicles — Safety of the intended functionality.</em> <a href="https://www.iso.org/standard/77490.html" rel="noopener">iso.org</a>
       </p>
     </div>
   </section>
 
-  <section class="contact" id="contact">
+  <section id="contact">
     <div class="wrap">
-      <div class="sec-head">
-        <span class="sec-num">06</span>
-        <h2>Talk to us about the problem</h2>
-      </div>
-      <p>If you run validation, simulation, or safety for an automated driving programme, we would like to compare notes — particularly on where your current process tells you it has run out of evidence. We are not selling anything yet.</p>
+      <h2><span class="n">06</span>Compare notes</h2>
+      <p>If you run validation, simulation or safety for an automated driving programme, we'd like to hear where your process tells you it has run out of evidence. We are not selling anything yet.</p>
       <p><a class="btn" href="mailto:outlierresilience@gmail.com">outlierresilience@gmail.com</a></p>
     </div>
   </section>
-
 </main>
 
 <footer>
