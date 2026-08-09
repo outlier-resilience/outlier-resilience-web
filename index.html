@@ -1,381 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Outlier Resilience - Addressing the core validation bottleneck in autonomous driving and AI-based steering models.">
-  <title>Outlier Resilience | The Autonomy Validation Gap</title>
-  
-  <!-- Load Premium Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-color: #06090e; /* Deep dark slate black */
-      --card-bg: rgba(13, 18, 24, 0.7); /* Sleek translucent card */
-      --card-border: rgba(82, 183, 136, 0.15); /* Soft glowing green border */
-      --text-main: #f3f4f6; /* Off-white for high readability */
-      --text-muted: #9ca3af; /* Cool grey for descriptions */
-      --accent-green: #52b788; /* Fresh mint green */
-      --accent-mint: #74c69d; /* Bright mint green */
-      --accent-gradient: linear-gradient(135deg, #40916c 0%, #74c69d 100%); /* Tech gradient */
-      --glow-shadow: 0 0 30px rgba(82, 183, 136, 0.1);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OutRes — The Validation Problem in Automated Driving</title>
+<meta name="description" content="Automated driving systems fail on the rare, the degraded, and the unseen. OutRes (Outlier Resilience LLC) is an applied research venture in Michigan working on the validation problem — how you demonstrate safety when the events that matter are too rare to measure.">
+<link rel="canonical" href="https://outlierresilience.com/">
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/favicon.svg">
 
-    body {
-      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-      line-height: 1.6;
-      color: var(--text-main);
-      background-color: var(--bg-color);
-      overflow-x: hidden;
-      position: relative;
-    }
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://outlierresilience.com/">
+<meta property="og:site_name" content="OutRes">
+<meta property="og:title" content="OutRes — The Validation Problem in Automated Driving">
+<meta property="og:description" content="You cannot test-drive your way to proof of safety. Notes on the validation bottleneck in automated driving.">
+<meta property="og:image" content="https://outlierresilience.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 
-    /* Ambient glow elements */
-    body::before {
-      content: '';
-      position: absolute;
-      top: -10%;
-      left: 10%;
-      width: 60%;
-      height: 50%;
-      background: radial-gradient(circle, rgba(82, 183, 136, 0.06) 0%, transparent 70%);
-      z-index: -1;
-      pointer-events: none;
-    }
+<link rel="preload" href="/assets/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-    body::after {
-      content: '';
-      position: absolute;
-      bottom: 5%;
-      right: 5%;
-      width: 50%;
-      height: 60%;
-      background: radial-gradient(circle, rgba(116, 198, 157, 0.04) 0%, transparent 70%);
-      z-index: -1;
-      pointer-events: none;
-    }
+<style>
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/assets/plus-jakarta-sans-latin.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
+:root {
+  --bg:        #06090e;
+  --surface:   #0c1118;
+  --line:      #1b232e;
+  --line-soft: #141b24;
+  --ink:       #eef1f5;
+  --ink-2:     #b8c0cb;
+  --ink-3:     #78828f;
+  --accent:    #52b788;
+  --accent-dim:#2f6b50;
+  --measure:   68ch;
+}
 
-    /* Centered spacious Header */
-    header {
-      padding: 5rem 0 3rem 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink-2);
+  font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
 
-    .logo-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 2rem;
-      background: linear-gradient(135deg, #0e1213 0%, #1e2126 100%);
-      padding: 1.5rem 3.5rem;
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 
-                  inset 0 1px 0 rgba(255, 255, 255, 0.05),
-                  0 0 30px rgba(82, 183, 136, 0.03);
-      max-width: 440px;
-      width: 100%;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    
-    .logo-container:hover {
-      border-color: rgba(82, 183, 136, 0.2);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 
-                  inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                  0 0 40px rgba(82, 183, 136, 0.08);
-      transform: translateY(-2px);
-    }
+.wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 28px; }
 
-    .logo-img {
-      max-height: 140px;
-      width: auto;
-      display: block;
-      transition: transform 0.4s ease;
-    }
+a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--accent-dim); transition: border-color .2s, color .2s; }
+a:hover { color: #fff; border-bottom-color: var(--accent); }
+a:focus-visible, .skip:focus { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 
-    .tagline-badge {
-      display: inline-block;
-      padding: 0.5rem 1.2rem;
-      background: rgba(82, 183, 136, 0.06);
-      border: 1px solid rgba(82, 183, 136, 0.2);
-      border-radius: 50px;
-      color: var(--accent-mint);
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-top: 0.5rem;
-    }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 28px; top: 12px; z-index: 10; background: var(--surface); color: var(--ink); padding: 10px 16px; border: 1px solid var(--line); border-radius: 6px; }
 
-    /* Hero Section */
-    .hero {
-      padding: 2rem 0 3rem 0;
-      text-align: center;
-    }
+/* ---------- header ---------- */
+.masthead { border-bottom: 1px solid var(--line-soft); position: sticky; top: 0; background: rgba(6,9,14,.88); backdrop-filter: blur(8px); z-index: 5; }
+.masthead .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 74px; }
 
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      line-height: 1.2;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(180deg, #FFFFFF 0%, #D1D5DB 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+.lockup { display: flex; align-items: center; gap: 16px; border: 0; }
+.lockup img { display: block; width: 169px; height: 27px; flex: none; }
+.lockup .full {
+  font-size: 9.5px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ink-3); line-height: 1.4; border-left: 1px solid var(--line);
+  padding-left: 16px;
+}
+@media (max-width: 560px) { .lockup .full { display: none; } }
 
-    .hero h1 span {
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+.nav { display: flex; gap: 28px; font-size: 13.5px; font-weight: 500; letter-spacing: .04em; }
+.nav a { color: var(--ink-3); border: 0; }
+.nav a:hover { color: var(--ink); }
+@media (max-width: 640px) { .nav { display: none; } }
 
-    .hero-subtitle {
-      font-size: 1.15rem;
-      color: var(--text-muted);
-      max-width: 700px;
-      margin: 0 auto;
-      font-weight: 400;
-      line-height: 1.7;
-    }
+/* ---------- hero ---------- */
+.hero { padding: 112px 0 88px; border-bottom: 1px solid var(--line-soft); }
+.eyebrow {
+  display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 30px;
+}
+.hero h1 {
+  margin: 0 0 28px;
+  font-size: clamp(2.15rem, 5.4vw, 3.5rem);
+  line-height: 1.08;
+  letter-spacing: -.03em;
+  font-weight: 800;
+  color: var(--ink);
+  max-width: 19ch;
+  text-wrap: balance;
+}
+.hero .lede { font-size: clamp(1.05rem, 1.9vw, 1.22rem); line-height: 1.62; max-width: var(--measure); margin: 0; }
+.hero .lede + .lede { margin-top: 20px; }
 
-    /* Grid layout for Bottlenecks */
-    .problem-section {
-      padding: 2rem 0 5rem 0;
-    }
+/* ---------- sections ---------- */
+section { padding: 88px 0; border-bottom: 1px solid var(--line-soft); }
+.sec-head { display: flex; gap: 20px; align-items: baseline; margin-bottom: 34px; }
+.sec-num { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: var(--accent); flex: none; padding-top: 6px; font-variant-numeric: tabular-nums; }
+h2 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.05rem); line-height: 1.18; letter-spacing: -.022em; font-weight: 700; color: var(--ink); max-width: 30ch; text-wrap: balance; }
+h3 { margin: 0 0 10px; font-size: 1.02rem; font-weight: 700; letter-spacing: -.005em; color: var(--ink); }
+p { max-width: var(--measure); margin: 0 0 20px; }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--ink); font-weight: 600; }
 
-    .section-title {
-      font-size: 1.75rem;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 2.5rem;
-      letter-spacing: -0.02em;
-    }
+/* ---------- KPI row (headline numbers — not a chart) ---------- */
+.kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); border-radius: 10px; overflow: hidden; margin: 8px 0 34px; }
+.kpi > div { background: var(--surface); padding: 26px 24px 24px; }
+.kpi .fig { font-size: clamp(2.1rem, 4.4vw, 2.9rem); font-weight: 800; line-height: 1; letter-spacing: -.035em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.kpi .unit { font-size: .95rem; font-weight: 600; color: var(--ink-2); margin-top: 9px; }
+.kpi .note { font-size: .82rem; line-height: 1.5; color: var(--ink-3); margin-top: 7px; }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
+/* ---------- pull quote ---------- */
+blockquote {
+  margin: 34px 0; padding: 4px 0 4px 26px; border-left: 2px solid var(--accent-dim);
+  max-width: var(--measure);
+}
+blockquote p { font-size: 1.1rem; line-height: 1.55; color: var(--ink); font-weight: 500; margin-bottom: 12px; }
+blockquote cite { display: block; font-style: normal; font-size: .84rem; color: var(--ink-3); letter-spacing: .01em; }
 
-    .card {
-      background: var(--card-bg);
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      border-radius: 20px;
-      padding: 2rem;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(16px);
-    }
+/* ---------- feature list ---------- */
+.points { display: grid; grid-template-columns: 1fr; gap: 30px 44px; margin-top: 34px; }
+@media (min-width: 760px) { .points { grid-template-columns: 1fr 1fr; } }
+.points > div { border-top: 1px solid var(--line); padding-top: 18px; }
+.points p { font-size: .94rem; line-height: 1.6; margin: 0; color: var(--ink-2); }
 
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(180deg, rgba(82, 183, 136, 0.05) 0%, transparent 100%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
+/* ---------- research ---------- */
+.papers { display: flex; flex-direction: column; gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); border-radius: 10px; overflow: hidden; margin-top: 30px; }
+.paper { background: var(--surface); padding: 22px 24px; display: flex; gap: 20px; align-items: baseline; flex-wrap: wrap; }
+.paper .venue { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); flex: none; min-width: 84px; }
+.paper .title { color: var(--ink); font-weight: 500; flex: 1 1 260px; }
+.status { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent-dim); border-radius: 100px; padding: 3px 11px; flex: none; }
 
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: var(--card-border);
-      box-shadow: 0 20px 40px -15px rgba(82, 183, 136, 0.1);
-    }
+/* ---------- contact ---------- */
+.contact { padding: 88px 0 96px; border-bottom: 0; }
+.btn {
+  display: inline-block; margin-top: 8px; padding: 14px 26px;
+  background: var(--accent); color: #06090e; border: 0; border-radius: 6px;
+  font-weight: 700; font-size: .95rem; letter-spacing: .01em;
+  transition: background .2s;
+}
+.btn:hover { background: #6bcb9c; color: #06090e; }
 
-    .card:hover::before {
-      opacity: 1;
-    }
+/* ---------- footer ---------- */
+footer { padding: 30px 0 44px; color: var(--ink-3); font-size: .82rem; }
+footer .wrap { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+footer a { color: var(--ink-3); border: 0; }
+footer a:hover { color: var(--ink-2); }
 
-    .card-num {
-      font-size: 1.75rem;
-      font-weight: 800;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.5rem;
-      font-style: italic;
-    }
-
-    .card h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      color: #FFF;
-    }
-
-    .card p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    /* CTA Section */
-    .cta-section {
-      text-align: center;
-      padding: 5rem 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .cta-section h2 {
-      font-size: 2rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      letter-spacing: -0.02em;
-    }
-
-    .cta-section p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto 2.5rem auto;
-      line-height: 1.6;
-    }
-
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem 2.25rem;
-      font-size: 1rem;
-      font-weight: 700;
-      color: #06090e;
-      background: var(--accent-gradient);
-      border-radius: 50px;
-      text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 4px 20px rgba(82, 183, 136, 0.25);
-    }
-
-    .cta-btn:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 30px rgba(82, 183, 136, 0.45);
-    }
-
-    .cta-btn svg {
-      margin-left: 8px;
-      transition: transform 0.3s ease;
-    }
-
-    .cta-btn:hover svg {
-      transform: translateX(4px);
-    }
-
-    /* Footer */
-    footer {
-      padding: 3rem 0;
-      text-align: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      color: rgba(255, 255, 255, 0.25);
-      font-size: 0.8rem;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2.25rem;
-      }
-      .hero-subtitle {
-        font-size: 1.05rem;
-      }
-      .cta-section h2 {
-        font-size: 1.75rem;
-      }
-      .logo-container {
-        padding: 1.25rem 2.5rem;
-        max-width: 320px;
-      }
-      .logo-img {
-        max-height: 100px;
-      }
-    }
-  </style>
+.refs { margin-top: 30px; font-size: .82rem; line-height: 1.6; color: var(--ink-3); max-width: var(--measure); }
+.refs em { margin-right: .3em; }
+.refs a { color: var(--ink-3); border-bottom: 1px solid var(--line); }
+.refs a:hover { color: var(--ink-2); }
+</style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-  <div class="container">
-    <header>
-      <div class="logo-container">
-        <!-- Using the dark logo matching our dark tech theme -->
-        <img src="logo_dark.png" alt="Outlier Resilience Logo" class="logo-img">
-      </div>
-      <span class="tagline-badge">The Autonomy Validation Gap</span>
-    </header>
-
-    <main>
-      <section class="hero">
-        <h1>AI Driving Models are Stuck in the <span>Simulation Loop</span></h1>
-        <p class="hero-subtitle">
-          Autonomy teams run billions of simulation miles, yet they cannot guarantee safety in unseen edge cases. Continuous real-world environments demand a shift from brute-force testing to proactive validation.
-        </p>
-      </section>
-
-      <section class="problem-section">
-        <h2 class="section-title">The Core Validation Bottlenecks</h2>
-        
-        <div class="grid">
-          <div class="card">
-            <div class="card-num">01</div>
-            <h3>Scenario Overload</h3>
-            <p>
-              Millions of random simulation miles create massive compute overhead without revealing the structural limits of AI driving policies. You are accumulating data, not safety.
-            </p>
-          </div>
-
-          <div class="card">
-            <div class="card-num">02</div>
-            <h3>The Perception Gap</h3>
-            <p>
-              Environmental degradations—like sudden glare, lens smudge, or active snow—silently break neural steering models. Standard log replays fail to catch these edge cases.
-            </p>
-          </div>
-
-          <div class="card">
-            <div class="card-num">03</div>
-            <h3>The Redesign Penalty</h3>
-            <p>
-              Discovering critical safety failures late in the SIL/HIL cycle causes months of delay. Safety needs to be prioritized at the dataset level, before running expensive trials.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="cta-section">
-        <h2>Let's Solve the Autonomy Validation Gap</h2>
-        <p>We are partnering with validation leads, simulation teams, and safety directors at OEMs and Tier-1 suppliers to accelerate AI steering validation. Let's collaborate.</p>
-        <a href="mailto:outlierresilience@gmail.com" class="cta-btn">
-          Collaborate with Us
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </a>
-      </section>
-    </main>
-
-    <footer>
-      &copy; 2026 Outlier Resilience LLC. All rights reserved.
-    </footer>
+<header class="masthead">
+  <div class="wrap">
+    <a class="lockup" href="/" aria-label="OutRes — home">
+      <img src="/assets/logo-lockup.svg" width="169" height="27" alt="OutRes">
+      <span class="full">Outlier<br>Resilience</span>
+    </a>
+    <nav class="nav">
+      <a href="#problem">The problem</a>
+      <a href="#research">Research</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </div>
+</header>
+
+<main id="main">
+
+  <div class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Applied research · Michigan</span>
+      <h1>You cannot test-drive your way to proof of safety.</h1>
+      <p class="lede">Automated driving systems do not fail on the average mile. They fail on the rare one — the degraded sensor, the unfamiliar road surface, the condition nobody thought to put in the test plan.</p>
+      <p class="lede">That creates an uncomfortable problem. The events that determine whether a system is safe are precisely the events too rare to observe enough of. <strong>OutRes</strong> — Outlier Resilience LLC — is an early-stage applied research venture working on that problem.</p>
+    </div>
+  </div>
+
+  <section id="problem">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">01</span>
+        <h2>The arithmetic of proving safety by driving</h2>
+      </div>
+
+      <p>The most-cited result in this field is not a breakthrough. It is a piece of arithmetic. In 2016 Nidhi Kalra and Susan Paddock at RAND asked how many miles an automated vehicle would need to accumulate to demonstrate statistically that it is safer than a human driver. The human benchmark is 1.09 fatalities per 100 million miles.</p>
+
+      <div class="kpi">
+        <div>
+          <div class="fig">275M</div>
+          <div class="unit">failure-free miles</div>
+          <div class="note">To show, at 95% confidence, a fatality rate at the human benchmark.</div>
+        </div>
+        <div>
+          <div class="fig">12.5</div>
+          <div class="unit">years</div>
+          <div class="note">For a 100-vehicle fleet driving 24/7/365 at 25 mph to cover them.</div>
+        </div>
+        <div>
+          <div class="fig">8.8B</div>
+          <div class="unit">miles</div>
+          <div class="note">To estimate that rate to within 20% — roughly 400 years for the same fleet.</div>
+        </div>
+      </div>
+
+      <blockquote>
+        <p>“This analysis shows that for fatalities it is not possible to test-drive autonomous vehicles to demonstrate their safety to any plausible standard, even if we assume perfect performance.”</p>
+        <cite>Kalra &amp; Paddock, <em>Driving to Safety</em>, RAND Corporation, 2016</cite>
+      </blockquote>
+
+      <p>This is not an argument against road testing, and it is not a claim that anyone is doing it wrong. It is a statement about what miles can and cannot buy. Accumulating them demonstrates competence in conditions you have already seen. It does not bound the behaviour you have not seen — and past a certain point, adding miles stops changing the answer.</p>
+    </div>
+  </section>
+
+  <section id="standards">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">02</span>
+        <h2>The standards name the gap. They do not close it.</h2>
+      </div>
+
+      <p>Functional safety, as handled by ISO 26262, concerns hazards that arise when something breaks. But an automated driving system can injure someone with every component working exactly as designed — because the design was insufficient for the situation it met.</p>
+
+      <p><a href="https://www.iso.org/standard/77490.html" rel="noopener">ISO 21448:2022</a>, the Safety Of The Intended Functionality standard, exists for this case. It defines SOTIF as the absence of unreasonable risk arising from <strong>functional insufficiencies</strong> of the intended functionality or its implementation — no failure required. It is conventionally framed as four regions: scenarios that are known and safe, known and unsafe, unknown and safe, and the one that matters, <strong>unknown and unsafe</strong>.</p>
+
+      <p>The standard is clear that the engineering objective is to shrink that fourth region. What it cannot supply is a method for demonstrating how much of it you have actually eliminated. You are asked to provide evidence about scenarios you have not enumerated — which is, restated, the same problem as the previous section.</p>
+    </div>
+  </section>
+
+  <section id="degradation">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">03</span>
+        <h2>The tail is not exotic. It is Tuesday in February.</h2>
+      </div>
+
+      <p>“Edge case” suggests something bizarre. In practice the conditions that degrade a perception stack are mundane, frequent, and regional — which is exactly why they are easy to under-weight in a test programme assembled somewhere sunny.</p>
+
+      <div class="points">
+        <div>
+          <h3>Degraded optics</h3>
+          <p>Low winter sun near the horizon, wet glare, spray from the vehicle ahead, a salted and smeared lens. The camera still returns an image. It returns a worse one, and nothing in the pipeline announces that.</p>
+        </div>
+        <div>
+          <h3>Vanishing road structure</h3>
+          <p>Lane markings under snow, slush, or wear. Models that learned to lean on painted lines inherit a dependency that the road does not always honour.</p>
+        </div>
+        <div>
+          <h3>Shifted appearance statistics</h3>
+          <p>A model trained largely on clear conditions meets a distribution it was not fitted to. Degradation here is often graceful-looking and quiet, which makes it worse, not better.</p>
+        </div>
+        <div>
+          <h3>Compounding, not isolated</h3>
+          <p>Real conditions arrive together — dusk and precipitation and a worn surface at once. Test matrices that vary one factor at a time systematically miss the combinations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cost">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">04</span>
+        <h2>Finding out late is the expensive way to find out</h2>
+      </div>
+
+      <p>The structural cost is when the discovery happens. A weakness identified while the data set and model architecture are still open is a design decision. The same weakness surfacing during hardware-in-the-loop or on-road validation is a schedule event — it lands after the tooling, the integration, and the test programme have been built around the assumption that it was not there.</p>
+
+      <p>This is the ordinary logic of the V-model, and it is not news to anyone who has run a validation programme. It is worth stating plainly because it sets what a useful contribution to this field would have to do: <strong>move evidence earlier</strong>, and make it about the conditions you have not sampled rather than the ones you have.</p>
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">05</span>
+        <h2>Research</h2>
+      </div>
+
+      <p>We are an applied research venture, and our position is that claims in this area should arrive as papers with methods attached, not as marketing. Work is in preparation. It will be posted here as it becomes available, alongside the preprints.</p>
+
+      <div class="papers">
+        <div class="paper">
+          <span class="venue">IEEE ITSC</span>
+          <span class="title">Formal verification of end-to-end steering under adverse weather perturbation</span>
+          <span class="status">In preparation</span>
+        </div>
+        <div class="paper">
+          <span class="venue">SAE WCX</span>
+          <span class="title">Safety standards and assurance for automated driving in winter conditions</span>
+          <span class="status">In preparation</span>
+        </div>
+      </div>
+
+      <p class="refs">
+        References —
+        Kalra, N. &amp; Paddock, S. M. (2016). <em>Driving to Safety: How Many Miles of Driving Would It Take to Demonstrate Autonomous Vehicle Reliability?</em> RAND Corporation, RR-1478-RC. <a href="https://www.rand.org/pubs/research_reports/RR1478.html" rel="noopener">rand.org</a> ·
+        ISO 21448:2022, <em>Road vehicles — Safety of the intended functionality</em>. <a href="https://www.iso.org/standard/77490.html" rel="noopener">iso.org</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">06</span>
+        <h2>Talk to us about the problem</h2>
+      </div>
+      <p>If you run validation, simulation, or safety for an automated driving programme, we would like to compare notes — particularly on where your current process tells you it has run out of evidence. We are not selling anything yet.</p>
+      <p><a class="btn" href="mailto:outlierresilience@gmail.com">outlierresilience@gmail.com</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Outlier Resilience LLC · Michigan, USA</span>
+    <span><a href="mailto:outlierresilience@gmail.com">outlierresilience@gmail.com</a></span>
+  </div>
+</footer>
 
 </body>
 </html>
