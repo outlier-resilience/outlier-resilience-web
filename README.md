@@ -32,7 +32,7 @@ generated/AI artwork.
 | `logo-lockup.svg` | Primary logo, icon + wordmark, for dark backgrounds |
 | `logo-lockup-light.svg` | Same, for light backgrounds |
 | `logo-wordmark.svg` | Wordmark only, two-tone |
-| `logo-wordmark-mono.svg` | Wordmark only, single colour (`currentColor`) |
+| `logo-wordmark-mono.svg` | Wordmark only, single color (`currentColor`) |
 | `logo-mark.svg` | Icon only (`currentColor`) — the ring with one point outside it |
 | `favicon.svg` | Square tile, browser tab / avatar |
 | `logo-lockup.png` | 1600×256 transparent PNG, for slides and LinkedIn |
@@ -41,7 +41,7 @@ generated/AI artwork.
 
 **The mark:** a ring — the *O* of OutRes — with a single point sitting outside
 it. The point is the outlier. It is built from two circles and nothing else, so
-it stays legible down to 16px and recolours cleanly.
+it stays legible down to 16px and recolors cleanly.
 
 **Regenerating the wordmark.** The wordmark is *outlined* glyph geometry, not
 live text, so it renders identically everywhere without the font. If it ever
@@ -49,7 +49,7 @@ needs rebuilding (different weight, different string), the outlines were
 extracted from `plus-jakarta-sans-latin.woff2` with `fontTools`. See
 `assets/FONT-LICENSE.md`.
 
-**Colour.** Accent `#52b788`, ink `#eef1f5`, background `#06090e`.
+**Color.** Accent `#52b788`, ink `#eef1f5`, background `#06090e`.
 
 ## Content note
 

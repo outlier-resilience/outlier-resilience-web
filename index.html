@@ -112,8 +112,7 @@ dd { margin: 3px 0 0; font-size: .92rem; line-height: 1.55; }
 .papers .t { color: var(--ink); font-size: .93rem; flex: 1 1 240px; }
 .papers .s { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
 
-.refs { margin-top: 20px; font-size: .76rem; line-height: 1.55; color: var(--ink-3); max-width: var(--measure); }
-.refs a { color: var(--ink-3); border-bottom-color: var(--line); }
+blockquote cite a { color: var(--ink-3); border-bottom-color: var(--line); }
 
 .btn {
   display: inline-block; margin-top: 6px; padding: 12px 22px; background: var(--accent);
@@ -146,33 +145,33 @@ footer a { color: var(--ink-3); border: 0; }
   <div class="hero wrap">
     <span class="eyebrow">Applied research · Michigan</span>
     <h1>You cannot test-drive your way to proof of safety.</h1>
-    <p>Automated driving systems fail on the rare mile, not the average one. The events that decide whether a system is safe are precisely the events too rare to observe enough of.</p>
+    <p>Automated driving systems fail on the rare mile, not the average one — and those miles are too rare to observe enough of.</p>
     <p><strong>OutRes</strong> — Outlier Resilience LLC — is an early-stage applied research venture working on that problem.</p>
   </div>
 
   <section id="problem">
     <div class="wrap">
       <h2><span class="n">01</span>The arithmetic doesn't work</h2>
-      <p>Human drivers average 1.09 fatalities per 100 million miles. RAND calculated what it would take to prove an automated vehicle beats that.</p>
+      <p>Human drivers average 1.09 fatalities per 100 million miles. RAND calculated what proving an automated vehicle beats that would take.</p>
 
       <div class="kpi">
         <div>
           <div class="fig">275M</div>
-          <div class="lab">Failure-free miles, to show it at 95% confidence.</div>
+          <div class="lab">Failure-free miles, at 95% confidence.</div>
         </div>
         <div>
           <div class="fig">12.5</div>
-          <div class="lab">Years for a 100-vehicle fleet driving 24/7 to cover them.</div>
+          <div class="lab">Years for a 100-vehicle fleet driving 24/7.</div>
         </div>
         <div>
           <div class="fig">8.8B</div>
-          <div class="lab">Miles to pin the rate to within 20% — about 400 years.</div>
+          <div class="lab">Miles to pin the rate within 20% — about 400 years.</div>
         </div>
       </div>
 
       <blockquote>
         <p>“It is not possible to test-drive autonomous vehicles to demonstrate their safety to any plausible standard, even if we assume perfect performance.”</p>
-        <cite>Kalra &amp; Paddock, <em>Driving to Safety</em>, RAND, 2016</cite>
+        <cite>Kalra &amp; Paddock, <a href="https://www.rand.org/pubs/research_reports/RR1478.html" rel="noopener"><em>Driving to Safety</em></a>, RAND, 2016</cite>
       </blockquote>
     </div>
   </section>
@@ -180,20 +179,20 @@ footer a { color: var(--ink-3); border: 0; }
   <section>
     <div class="wrap">
       <h2><span class="n">02</span>The standards name the gap, not the answer</h2>
-      <p>ISO 26262 covers hazards from things breaking. But a system can cause harm with every component working exactly as designed — because the design was insufficient for the situation it met.</p>
-      <p><a href="https://www.iso.org/standard/77490.html" rel="noopener">ISO 21448</a> (SOTIF) exists for that case: risk from <strong>functional insufficiencies</strong>, no failure required. It asks you to shrink the set of unknown-unsafe scenarios. It cannot tell you how much of that set you have actually eliminated.</p>
+      <p>ISO 26262 covers hazards from things breaking. But a system can cause harm with every component working as designed — the design was simply insufficient for the situation.</p>
+      <p><a href="https://www.iso.org/standard/77490.html" rel="noopener">ISO 21448</a> (SOTIF) covers that: risk from <strong>functional insufficiencies</strong>, no failure required. It asks you to shrink the set of unknown-unsafe scenarios — not how to know how much you've eliminated.</p>
     </div>
   </section>
 
   <section>
     <div class="wrap">
       <h2><span class="n">03</span>The tail is not exotic. It's Tuesday in February.</h2>
-      <p>The conditions that degrade a perception stack are mundane, frequent and regional — easy to under-weight in a test programme assembled somewhere sunny.</p>
+      <p>The conditions that degrade a perception stack are mundane, frequent and regional — easy to under-weight in a test program assembled somewhere sunny.</p>
       <dl>
-        <div><dt>Degraded optics</dt><dd>Low winter sun, wet glare, spray, a salted lens. The camera still returns an image. It returns a worse one.</dd></div>
-        <div><dt>Vanishing road structure</dt><dd>Markings under snow or wear. Models that learned to lean on paint inherit a dependency the road does not always honour.</dd></div>
-        <div><dt>Shifted statistics</dt><dd>A model fitted to clear conditions meets a distribution it was not trained on. The failure is quiet, which makes it worse.</dd></div>
-        <div><dt>Compounding conditions</dt><dd>Dusk and precipitation and a worn surface, together. Matrices that vary one factor at a time miss the combinations.</dd></div>
+        <div><dt>Degraded optics</dt><dd>Low sun, wet glare, spray, a salted lens. The image still arrives — degraded.</dd></div>
+        <div><dt>Vanishing road structure</dt><dd>Markings under snow or wear. Models that lean on paint inherit a dependency the road doesn't keep.</dd></div>
+        <div><dt>Shifted statistics</dt><dd>A model fitted to clear conditions meets one it wasn't trained on. The failure is quiet.</dd></div>
+        <div><dt>Compounding conditions</dt><dd>Dusk, precipitation and a worn surface at once. One-factor-at-a-time matrices miss the combinations.</dd></div>
       </dl>
     </div>
   </section>
@@ -201,30 +200,25 @@ footer a { color: var(--ink-3); border: 0; }
   <section>
     <div class="wrap">
       <h2><span class="n">04</span>Finding out late is the expensive way</h2>
-      <p>Early, a weakness is a design decision. Surfacing in hardware-in-the-loop or on-road validation, the same weakness is a schedule event — the tooling and the test programme were built around its absence.</p>
-      <p>Which sets the bar for a useful contribution: <strong>move the evidence earlier</strong>, and make it about the conditions you have not sampled.</p>
+      <p>Early, a weakness is a design decision. In hardware-in-the-loop or on-road validation it is a schedule event. Which sets the bar: <strong>move the evidence earlier</strong>, onto conditions you have not sampled.</p>
     </div>
   </section>
 
   <section id="research">
     <div class="wrap">
       <h2><span class="n">05</span>Research</h2>
-      <p>Claims in this area should arrive as papers with methods attached. Work is in preparation and will be posted here.</p>
+      <p>Claims here should arrive as papers with methods attached. Work in preparation will be posted here.</p>
       <div class="papers">
         <div><span class="v">IEEE ITSC</span><span class="t">Formal verification of end-to-end steering under adverse weather perturbation</span><span class="s">In preparation</span></div>
         <div><span class="v">SAE WCX</span><span class="t">Safety standards and assurance for automated driving in winter conditions</span><span class="s">In preparation</span></div>
       </div>
-      <p class="refs">
-        Kalra, N. &amp; Paddock, S. M. (2016). <em>Driving to Safety.</em> RAND, RR-1478-RC. <a href="https://www.rand.org/pubs/research_reports/RR1478.html" rel="noopener">rand.org</a> ·
-        ISO 21448:2022, <em>Road vehicles — Safety of the intended functionality.</em> <a href="https://www.iso.org/standard/77490.html" rel="noopener">iso.org</a>
-      </p>
     </div>
   </section>
 
   <section id="contact">
     <div class="wrap">
       <h2><span class="n">06</span>Compare notes</h2>
-      <p>If you run validation, simulation or safety for an automated driving programme, we'd like to hear where your process tells you it has run out of evidence. We are not selling anything yet.</p>
+      <p>If you run validation, simulation or safety for an automated driving program, we'd like to hear where your process runs out of evidence. We're not selling anything yet.</p>
       <p><a class="btn" href="mailto:outlierresilience@gmail.com">outlierresilience@gmail.com</a></p>
     </div>
   </section>
