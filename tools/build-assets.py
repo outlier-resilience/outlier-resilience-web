@@ -26,7 +26,10 @@ DOT_D = RO + 10.9 + DOT_R                 # ring outer, clear gap, then the poin
 # on each end of the arc, so the angle that gives this varies with the stroke:
 # the same 26 degrees left 5.9% of daylight on the mark and 0.1% on the
 # wordmark, which is why the wordmark looked uncut.
-DAYLIGHT = 0.14
+# The cut sits on the upper-right diagonal. That angle, not the size, is what
+# keeps the letter off a C: rotate the same cut to 0 degrees and the wordmark
+# reads "CutRes" at every size.
+DAYLIGHT = 0.11
 
 
 def arc_degrees(ro, sw, daylight=DAYLIGHT):
