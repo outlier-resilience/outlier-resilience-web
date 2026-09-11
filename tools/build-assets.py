@@ -18,13 +18,27 @@ INK_L, ACC_L = "#10151c", "#2f8f66"       # on light grounds
 # The typeface O this ring replaces: centre, outer radius, and its stroke weights
 # (15.0 at the top, 16.7 at the sides). 15.5 sits between them.
 CX, CY, RO = 47.14, 40.0, 42.42
-SW, GAP, DOT_R = 15.5, 26, 7.5
+SW, DOT_R = 15.5, 7.5
 DOT_D = RO + 10.9 + DOT_R                 # ring outer, clear gap, then the point
 
+# How much daylight the cut shows, as a fraction of the ring's outer width.
+# Set the daylight, not the angle. The round caps put half a stroke width back
+# on each end of the arc, so the angle that gives this varies with the stroke:
+# the same 26 degrees left 5.9% of daylight on the mark and 0.1% on the
+# wordmark, which is why the wordmark looked uncut.
+DAYLIGHT = 0.14
 
-def broken_ring(cx, cy, ro, sw, gap, ringc, dotc, dot_r, dot_d):
+
+def arc_degrees(ro, sw, daylight=DAYLIGHT):
+    """The arc to remove so the cut shows `daylight` once the caps are drawn."""
+    r = ro - sw / 2
+    return 2 * math.degrees(math.asin(min(1.0, (daylight * 2 * ro + sw) / (2 * r))))
+
+
+def broken_ring(cx, cy, ro, sw, ringc, dotc, dot_r, dot_d):
     """The ring, cut where the point left it, and the point."""
     r = ro - sw / 2
+    gap = arc_degrees(ro, sw)
     a1, a2 = -45 + gap / 2, 360 - 45 - gap / 2
     x1, y1 = cx + r * math.cos(math.radians(a1)), cy + r * math.sin(math.radians(a1))
     x2, y2 = cx + r * math.cos(math.radians(a2)), cy + r * math.sin(math.radians(a2))
@@ -45,12 +59,12 @@ def wordmark(ink, acc, res=None):
     res = res or acc
     return svg("0 -14 393.1 94",
                f'<g {GLYPH}><path fill="{ink}" d="{D_UT}"/><path fill="{res}" d="{d_res}"/></g>'
-               + broken_ring(CX, CY, RO, SW, GAP, ink, acc, DOT_R, DOT_D))
+               + broken_ring(CX, CY, RO, SW, ink, acc, DOT_R, DOT_D))
 
 
 def mark(ring, dot):
     """The mark alone, for tiles, avatars and slides."""
-    return svg("0 0 100 100", broken_ring(50, 50, 37, 10, GAP, ring, dot, 6.5, 53))
+    return svg("0 0 100 100", broken_ring(50, 50, 37, 10, ring, dot, 6.5, 53))
 
 
 def tile(plate, ring, dot):
@@ -58,7 +72,7 @@ def tile(plate, ring, dot):
     return svg("0 0 200 200",
                f'<rect width="200" height="200" rx="44" fill="{plate}"/>'
                f'<g transform="translate(22,22) scale(1.52)">'
-               f'{broken_ring(50, 50, 37, 13, GAP, ring, dot, 7.5, 54)}</g>')
+               f'{broken_ring(50, 50, 37, 13, ring, dot, 7.5, 54)}</g>')
 
 
 files = {
