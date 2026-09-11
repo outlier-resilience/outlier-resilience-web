@@ -29,7 +29,7 @@ DOT_D = RO + 10.9 + DOT_R                 # ring outer, clear gap, then the poin
 # The cut sits on the upper-right diagonal. That angle, not the size, is what
 # keeps the letter off a C: rotate the same cut to 0 degrees and the wordmark
 # reads "CutRes" at every size.
-DAYLIGHT = 0.09
+DAYLIGHT = 0.05
 
 
 def arc_degrees(ro, sw, daylight=DAYLIGHT):
