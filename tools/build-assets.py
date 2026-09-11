@@ -31,6 +31,13 @@ DOT_D = RO + 10.9 + DOT_R                 # ring outer, clear gap, then the poin
 # reads "CutRes" at every size.
 DAYLIGHT = 0.05
 
+# The favicon needs its own, larger share. A tab icon is about 9 px of ring, so
+# the wordmark's 5% works out at 0.45 px there and the ring renders closed.
+# 13% gives it 1.17 px, which reads on a light tab bar and a dark one. The two
+# values are not equal on purpose: they are chosen to look alike in use, which
+# is what optical sizing means.
+TILE_DAYLIGHT = 0.13
+
 
 def arc_degrees(ro, sw, daylight=DAYLIGHT):
     """The arc to remove so the cut shows `daylight` once the caps are drawn."""
@@ -38,10 +45,10 @@ def arc_degrees(ro, sw, daylight=DAYLIGHT):
     return 2 * math.degrees(math.asin(min(1.0, (daylight * 2 * ro + sw) / (2 * r))))
 
 
-def broken_ring(cx, cy, ro, sw, ringc, dotc, dot_r, dot_d):
+def broken_ring(cx, cy, ro, sw, ringc, dotc, dot_r, dot_d, daylight=DAYLIGHT):
     """The ring, cut where the point left it, and the point."""
     r = ro - sw / 2
-    gap = arc_degrees(ro, sw)
+    gap = arc_degrees(ro, sw, daylight)
     a1, a2 = -45 + gap / 2, 360 - 45 - gap / 2
     x1, y1 = cx + r * math.cos(math.radians(a1)), cy + r * math.sin(math.radians(a1))
     x2, y2 = cx + r * math.cos(math.radians(a2)), cy + r * math.sin(math.radians(a2))
@@ -75,7 +82,7 @@ def tile(plate, ring, dot):
     return svg("0 0 200 200",
                f'<rect width="200" height="200" rx="44" fill="{plate}"/>'
                f'<g transform="translate(22,22) scale(1.52)">'
-               f'{broken_ring(50, 50, 37, 13, ring, dot, 7.5, 54)}</g>')
+               f'{broken_ring(50, 50, 37, 13, ring, dot, 7.5, 54, TILE_DAYLIGHT)}</g>')
 
 
 files = {
