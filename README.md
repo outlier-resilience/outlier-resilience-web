@@ -44,6 +44,7 @@ lockup, and there should not be one. Setting the mark next to the word puts two
 | `logo-wordmark.png` | 1600x383 transparent PNG, for slides and LinkedIn |
 | `icon-512.png` | 512x512 tile, for profile pictures |
 | `og.png` | 1200x630 social preview |
+| `linkedin-banner.jpg` | 2256x382 cover image for the LinkedIn company page |
 
 **Use the plain file, not the `-mono` one, in an `<img>` tag.** `currentColor`
 does not cross an `<img>` boundary, so a `-mono` file dropped into a page
