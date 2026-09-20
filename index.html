@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://outlierresilience.com/">
 <meta property="og:site_name" content="OutRes">
 <meta property="og:title" content="OutRes: Test driving cannot prove safety">
-<meta property="og:description" content="Test driving cannot prove safety.">
+<meta property="og:description" content="A test campaign visits finitely many conditions, and the road presents uncountably many.">
 <meta property="og:image" content="https://outlierresilience.com/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -74,26 +74,27 @@ nav a:hover { color: var(--ink); }
 /* hero */
 /* longhand: .hero is also .wrap, so shorthand would clobber its horizontal padding */
 .hero { padding-top: 78px; padding-bottom: 62px; }
-.eyebrow { font-size: 10.5px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
 h1 {
   margin: 22px 0 20px; font-weight: 800; letter-spacing: -.03em; line-height: 1.07;
   font-size: clamp(2rem, 5vw, 3.1rem); color: var(--ink); max-width: 18ch; text-wrap: balance;
 }
 .hero p { font-size: clamp(1rem, 1.7vw, 1.13rem); line-height: 1.55; }
 
-/* the one page */
-.hero .lede { font-size: clamp(1.15rem, 2.2vw, 1.45rem); line-height: 1.45; color: var(--ink); font-weight: 500; }
-.hero .who  { margin-top: 20px; }
-.hero .fact { margin-top: 34px; padding-left: 20px; border-left: 2px solid #2f6b50; font-size: .95rem; }
-.hero .fact cite { display: block; margin-top: 6px; font-style: normal; font-size: .78rem; color: var(--ink-3); }
+/* the one page. Two sizes only: the headline, and everything else. */
+h1 { max-width: none; font-size: clamp(1.75rem, 4.4vw, 2.7rem); }
+.hero .lede { font-size: 1.05rem; line-height: 1.6; color: var(--ink); max-width: 62ch; }
+.hero figure { margin: 34px 0 0; max-width: 100%; }
+.hero figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--line); }
+.hero figcaption { margin-top: 10px; font-size: .84rem; color: var(--ink-3); max-width: 62ch; }
+.hero .fact { margin-top: 34px; padding-left: 20px; border-left: 2px solid #2f6b50; font-size: 1.05rem; color: var(--ink); }
+.hero .fact cite { display: block; margin-top: 6px; font-style: normal; font-size: .84rem; color: var(--ink-3); }
 .hero .fact cite a { color: var(--ink-3); border-bottom-color: var(--line); }
-.hero .ask  { margin-top: 40px; color: var(--ink); }
-.hero .paper { margin-top: 40px; font-size: .84rem; }
+.hero .paper { margin-top: 30px; font-size: .84rem; }
 .hero .paper a { color: var(--ink-3); border-bottom-color: var(--line); }
 .hero .paper a:hover { color: var(--ink); }
 
 .btn {
-  display: inline-block; margin-top: 6px; padding: 12px 22px; background: var(--accent);
+  display: inline-block; margin-top: 8px; padding: 12px 22px; background: var(--accent);
   color: #06090e; border: 0; border-radius: 5px; font-weight: 700; font-size: .92rem;
 }
 .btn:hover { background: #6bcb9c; }
@@ -116,23 +117,28 @@ footer a { color: var(--ink-3); border: 0; }
 
 <main>
   <div class="hero wrap">
-    <span class="eyebrow">Applied research &middot; Michigan</span>
     <h1>Test driving cannot prove safety.</h1>
-    <p class="lede">A test campaign visits finitely many conditions, and the road
-    presents uncountably many.</p>
-    <p class="who">We work with engineers who must validate a driving stack they
-    did not write.</p>
 
-    <p class="fact">Proving one vehicle beats a human driver would take 275&nbsp;million
-    failure-free miles. <cite><a href="https://www.rand.org/pubs/research_reports/RR1478.html">Kalra
+    <p class="lede">A test campaign visits finitely many conditions, and the road
+    presents uncountably many. We work with engineers who must validate a driving
+    stack they did not write.</p>
+
+    <figure>
+      <img src="assets/tested-vs-untested.png" width="956" height="410"
+           alt="Two camera frames of the same road. The left frame, in darkness, is covered by the test rule. The right frame, at dusk, is not.">
+      <figcaption>The same road, two lighting conditions. A rule that samples
+      the extremes covers the left frame and misses the right one.</figcaption>
+    </figure>
+
+    <p class="fact">Proving one vehicle beats a human driver would take
+    275&nbsp;million failure-free miles.
+    <cite><a href="https://www.rand.org/pubs/research_reports/RR1478.html">Kalra
     &amp; Paddock, RAND, 2016</a></cite></p>
 
-    <p class="ask">Tell us where your process runs out of evidence. We are not
-    selling anything.</p>
     <p><a class="btn" href="mailto:outlierresilience@gmail.com">outlierresilience@gmail.com</a></p>
 
-    <p class="paper"><a href="https://arxiv.org/abs/2609.10951">Preprint: testing
-    between the test cases</a></p>
+    <p class="paper"><a href="https://arxiv.org/abs/2609.10951">White paper:
+    testing between the test cases</a></p>
   </div>
 </main>
 

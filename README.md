@@ -91,11 +91,15 @@ The shape is fixed:
 
 | Part | Rule |
 |---|---|
-| Headline | Five words. "Test driving cannot prove safety." |
-| Explanation | One sentence, fifteen words or fewer. The problem, not the product. The wording comes from the steering preprint. |
-| Who we serve | One sentence. Sinclair says name the niche and go as narrow as you can. |
+| Headline | Five words, on one line. "Test driving cannot prove safety." |
+| Explanation | Two sentences. The problem, then who we serve. The wording comes from the steering preprint. |
+| One picture | The same road under two lighting conditions, one covered by the test rule and one not. It shows the problem rather than describing it. |
 | One fact | The RAND figure, with the citation. It sizes the problem. |
-| The ask | One sentence and an email address. |
+| The ask | The email address alone. No sales line. |
+| The white paper | One quiet link at the foot. |
+
+Two type sizes only: the headline, and everything else. Captions and citations
+are the one exception, and they are the same small size as each other.
 
 Keep it to one screen. The whole page is about sixty words. If you add a
 sentence, take one out.
