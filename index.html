@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OutRes: The Validation Problem in Automated Driving</title>
-<meta name="description" content="Automated driving fails on the rare mile, and no fleet can drive enough of them. OutRes (Outlier Resilience LLC) is an applied research venture in Michigan working on that validation problem.">
+<title>OutRes: Test driving cannot prove safety</title>
+<meta name="description" content="Automated driving fails on rare miles, and no fleet can drive enough to find them.">
 <link rel="canonical" href="https://outlierresilience.com/">
 
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://outlierresilience.com/">
 <meta property="og:site_name" content="OutRes">
-<meta property="og:title" content="OutRes: The Validation Problem in Automated Driving">
+<meta property="og:title" content="OutRes: Test driving cannot prove safety">
 <meta property="og:description" content="Test driving cannot prove safety.">
 <meta property="og:image" content="https://outlierresilience.com/assets/og.png">
 <meta property="og:image:width" content="1200">
@@ -81,38 +81,16 @@ h1 {
 }
 .hero p { font-size: clamp(1rem, 1.7vw, 1.13rem); line-height: 1.55; }
 
-/* sections */
-section { padding: 58px 0; border-top: 1px solid var(--line); }
-h2 {
-  position: relative; margin: 0 0 20px; padding-left: 38px;
-  font-size: 1.32rem; font-weight: 700; letter-spacing: -.018em;
-  color: var(--ink); max-width: 40ch; text-wrap: balance;
-}
-h2 .n { position: absolute; left: 0; top: .12em; color: var(--accent); font-size: .72em; letter-spacing: .1em; }
-
-/* headline figures, not a chart */
-.kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 26px 34px; margin: 26px 0; }
-.kpi .fig { font-size: 2.3rem; font-weight: 800; line-height: 1; letter-spacing: -.04em; color: var(--ink); font-variant-numeric: tabular-nums; }
-.kpi .lab { font-size: .8rem; color: var(--ink-3); margin-top: 8px; line-height: 1.45; min-height: 2.9em; }
-
-blockquote { margin: 24px 0 0; padding-left: 20px; border-left: 2px solid #2f6b50; max-width: var(--measure); }
-blockquote p { color: var(--ink); font-weight: 500; margin-bottom: 8px; }
-blockquote cite { font-style: normal; font-size: .78rem; color: var(--ink-3); }
-
-/* terse point list */
-dl { margin: 22px 0 0; display: grid; grid-template-columns: 1fr; gap: 16px; max-width: var(--measure); }
-dt { color: var(--ink); font-weight: 600; font-size: .95rem; }
-dd { margin: 3px 0 0; font-size: .92rem; line-height: 1.55; }
-
-/* research rows */
-.papers { margin: 22px 0 0; }
-.papers div { display: flex; gap: 16px; align-items: baseline; padding: 13px 0; border-top: 1px solid var(--line); flex-wrap: wrap; }
-.papers div:last-child { border-bottom: 1px solid var(--line); }
-.papers .v { font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); min-width: 72px; }
-.papers .t { color: var(--ink); font-size: .93rem; flex: 1 1 240px; }
-.papers .s { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
-
-blockquote cite a { color: var(--ink-3); border-bottom-color: var(--line); }
+/* the one page */
+.hero .lede { font-size: clamp(1.15rem, 2.2vw, 1.45rem); line-height: 1.45; color: var(--ink); font-weight: 500; }
+.hero .who  { margin-top: 20px; }
+.hero .fact { margin-top: 34px; padding-left: 20px; border-left: 2px solid #2f6b50; font-size: .95rem; }
+.hero .fact cite { display: block; margin-top: 6px; font-style: normal; font-size: .78rem; color: var(--ink-3); }
+.hero .fact cite a { color: var(--ink-3); border-bottom-color: var(--line); }
+.hero .ask  { margin-top: 40px; color: var(--ink); }
+.hero .paper { margin-top: 40px; font-size: .84rem; }
+.hero .paper a { color: var(--ink-3); border-bottom-color: var(--line); }
+.hero .paper a:hover { color: var(--ink); }
 
 .btn {
   display: inline-block; margin-top: 6px; padding: 12px 22px; background: var(--accent);
@@ -133,81 +111,29 @@ footer a { color: var(--ink-3); border: 0; }
       <img src="assets/logo-wordmark.svg" width="140" height="33" alt="OutRes">
       <span>Outlier Resilience</span>
     </a>
-    <nav>
-      <a href="#problem">Problem</a>
-      <a href="#research">Research</a>
-      <a href="#contact">Contact</a>
-    </nav>
   </div>
 </header>
 
 <main>
   <div class="hero wrap">
-    <span class="eyebrow">Applied research · Michigan</span>
+    <span class="eyebrow">Applied research &middot; Michigan</span>
     <h1>Test driving cannot prove safety.</h1>
-    <p>Automated driving fails on the rare mile. No fleet can drive enough of them, so the evidence has to come before the road.</p>
-    <p><strong>OutRes</strong> (Outlier Resilience LLC) is an early-stage applied research venture in Michigan, working with teams who must validate a driving stack they did not write.</p>
+    <p class="lede">Automated driving fails on rare miles, and no fleet can drive
+    enough to find them.</p>
+    <p class="who">We work with engineers who must validate a driving stack they
+    did not write.</p>
+
+    <p class="fact">Proving one vehicle beats a human driver would take 275&nbsp;million
+    failure-free miles. <cite><a href="https://www.rand.org/pubs/research_reports/RR1478.html">Kalra
+    &amp; Paddock, RAND, 2016</a></cite></p>
+
+    <p class="ask">Tell us where your process runs out of evidence. We are not
+    selling anything.</p>
+    <p><a class="btn" href="mailto:outlierresilience@gmail.com">outlierresilience@gmail.com</a></p>
+
+    <p class="paper"><a href="https://arxiv.org/abs/2609.10951">Preprint: testing
+    between the test cases</a></p>
   </div>
-
-  <section id="problem">
-    <div class="wrap">
-      <h2><span class="n">01</span>The arithmetic doesn't work</h2>
-      <p>Human drivers average 1.09 fatalities per 100 million miles. RAND calculated what proving an automated vehicle beats that would take.</p>
-
-      <div class="kpi">
-        <div>
-          <div class="fig">275M</div>
-          <div class="lab">Failure-free miles, at 95% confidence.</div>
-        </div>
-        <div>
-          <div class="fig">12.5</div>
-          <div class="lab">Years for a 100-vehicle fleet driving 24/7.</div>
-        </div>
-        <div>
-          <div class="fig">8.8B</div>
-          <div class="lab">Miles to pin the rate within 20%. About 400 years.</div>
-        </div>
-      </div>
-
-      <blockquote>
-        <p>“It is not possible to test-drive autonomous vehicles to demonstrate their safety to any plausible standard, even if we assume perfect performance.”</p>
-        <cite>Kalra &amp; Paddock, <a href="https://www.rand.org/pubs/research_reports/RR1478.html" rel="noopener"><em>Driving to Safety</em></a>, RAND, 2016</cite>
-      </blockquote>
-
-      <p><a href="https://www.iso.org/standard/77490.html" rel="noopener">ISO 21448</a> names the class of risk: harm with every component working as designed. It asks you to shrink the set of unknown-unsafe scenarios. It does not say how to know how much is left.</p>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <h2><span class="n">02</span>The tail is not exotic. It's Tuesday in February.</h2>
-      <p>The conditions that degrade a perception stack are mundane, frequent and regional. A test program assembled somewhere sunny will under-weight them. A model fitted to clear conditions meets one it wasn't trained on, and the failure is quiet.</p>
-      <dl>
-        <div><dt>Degraded optics</dt><dd>Low sun, wet glare, spray, a salted lens. The image still arrives, degraded.</dd></div>
-        <div><dt>Vanishing road structure</dt><dd>Markings under snow or wear. Models that lean on paint inherit a dependency the road doesn't keep.</dd></div>
-        <div><dt>Compounding conditions</dt><dd>Dusk, precipitation and a worn surface at once. One-factor-at-a-time matrices miss the combinations.</dd></div>
-      </dl>
-    </div>
-  </section>
-
-  <section id="research">
-    <div class="wrap">
-      <h2><span class="n">03</span>Research</h2>
-      <p>Claims here arrive as papers with methods attached, and with the code that produced them.</p>
-      <div class="papers">
-        <div><span class="v">arXiv</span><span class="t"><a href="https://arxiv.org/abs/2609.10951" rel="noopener">Testing between the test cases: proving end-to-end steering in conditions you never drove</a></span><span class="s">Preprint</span></div>
-        <div><span class="v">SAE WCX</span><span class="t">Safety standards and assurance for automated driving in winter conditions</span><span class="s">In preparation</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="wrap">
-      <h2><span class="n">04</span>Compare notes</h2>
-      <p>If you validate an automated driving stack, your own or a supplier's, we'd like to hear where your process runs out of evidence. We're not selling anything yet.</p>
-      <p><a class="btn" href="mailto:outlierresilience@gmail.com">outlierresilience@gmail.com</a></p>
-    </div>
-  </section>
 </main>
 
 <footer>

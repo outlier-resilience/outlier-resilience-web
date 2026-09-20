@@ -82,7 +82,26 @@ particular the "not X, but Y" construction, which is easy to overuse.
 
 ## Content note
 
-The page deliberately describes the *problem* and makes no claims about our own
-methods or results. The two figures cited are from published sources
-(RAND RR-1478; ISO 21448:2022) and are quoted accurately. If you edit that
-section, keep the numbers tied to the citations.
+The page follows the pre-product rule in James Sinclair, *Starting a StartUp*,
+page 69. Before there is a product or a customer, the page describes the
+problem and nothing else. No solution, no features, no benefits.
+
+The shape is fixed:
+
+| Part | Rule |
+|---|---|
+| Headline | Five words. "Test driving cannot prove safety." |
+| Explanation | One sentence, fifteen words. The problem, not the product. |
+| Who we serve | One sentence. Sinclair says name the niche and go as narrow as you can. |
+| One fact | The RAND figure, with the citation. It sizes the problem. |
+| The ask | One sentence and an email address. |
+
+Keep it to one screen. The whole page is about sixty words. If you add a
+sentence, take one out.
+
+The preprint link is the one judgment call. Sinclair would cut it. It stays
+because a technical reader needs one reason to believe the problem is
+understood here. If the page ever starts reading as a pitch, cut it first.
+
+The RAND figure is from RR-1478 and is quoted accurately. If you edit it, keep
+the number tied to the citation.
