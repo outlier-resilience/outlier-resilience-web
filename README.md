@@ -92,7 +92,7 @@ The shape is fixed:
 | Part | Rule |
 |---|---|
 | Headline | Five words. "Test driving cannot prove safety." |
-| Explanation | One sentence, fifteen words. The problem, not the product. |
+| Explanation | One sentence, fifteen words or fewer. The problem, not the product. The wording comes from the steering preprint. |
 | Who we serve | One sentence. Sinclair says name the niche and go as narrow as you can. |
 | One fact | The RAND figure, with the citation. It sizes the problem. |
 | The ask | One sentence and an email address. |
