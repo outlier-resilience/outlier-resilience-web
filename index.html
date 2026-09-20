@@ -85,13 +85,10 @@ h1 { max-width: none; font-size: clamp(1.75rem, 4.4vw, 2.7rem); }
 .hero .lede { font-size: 1.05rem; line-height: 1.6; color: var(--ink); max-width: 62ch; }
 .hero figure { margin: 34px 0 0; max-width: 100%; }
 .hero figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--line); }
-.hero figcaption { margin-top: 10px; font-size: .84rem; color: var(--ink-3); max-width: 62ch; }
+.hero figcaption { margin-top: 10px; font-size: .84rem; color: var(--ink-3); max-width: none; }
 .hero .fact { margin-top: 34px; padding-left: 20px; border-left: 2px solid #2f6b50; font-size: 1.05rem; color: var(--ink); }
 .hero .fact cite { display: block; margin-top: 6px; font-style: normal; font-size: .84rem; color: var(--ink-3); }
 .hero .fact cite a { color: var(--ink-3); border-bottom-color: var(--line); }
-.hero .paper { margin-top: 30px; font-size: .84rem; }
-.hero .paper a { color: var(--ink-3); border-bottom-color: var(--line); }
-.hero .paper a:hover { color: var(--ink); }
 
 .btn {
   display: inline-block; margin-top: 8px; padding: 12px 22px; background: var(--accent);
@@ -120,14 +117,14 @@ footer a { color: var(--ink-3); border: 0; }
     <h1>Test driving cannot prove safety.</h1>
 
     <p class="lede">A test campaign visits finitely many conditions, and the road
-    presents uncountably many. We work with engineers who must validate a driving
-    stack they did not write.</p>
+    presents uncountably many.</p>
 
     <figure>
       <img src="assets/tested-vs-untested.png" width="956" height="410"
            alt="Two camera frames of the same road. The left frame, in darkness, is covered by the test rule. The right frame, at dusk, is not.">
-      <figcaption>The same road, two lighting conditions. A rule that samples
-      the extremes covers the left frame and misses the right one.</figcaption>
+      <figcaption>The same road under two lighting conditions. A test rule that
+      samples the extremes covers the frame on the left and misses the one on the
+      right, where the model actually fails.</figcaption>
     </figure>
 
     <p class="fact">Proving one vehicle beats a human driver would take
@@ -137,8 +134,10 @@ footer a { color: var(--ink-3); border: 0; }
 
     <p><a class="btn" href="mailto:outlierresilience@gmail.com">outlierresilience@gmail.com</a></p>
 
-    <p class="paper"><a href="https://arxiv.org/abs/2609.10951">White paper:
-    testing between the test cases</a></p>
+    <p class="fact">Formal verification reads the weights and proves what a
+    steering model will do in conditions it never drove.
+    <cite><a href="https://arxiv.org/abs/2609.10951">White paper: testing between
+    the test cases</a></cite></p>
   </div>
 </main>
 

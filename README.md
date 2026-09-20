@@ -92,11 +92,14 @@ The shape is fixed:
 | Part | Rule |
 |---|---|
 | Headline | Five words, on one line. "Test driving cannot prove safety." |
-| Explanation | Two sentences. The problem, then who we serve. The wording comes from the steering preprint. |
+| Explanation | One sentence. The problem. The wording comes from the steering preprint. |
 | One picture | The same road under two lighting conditions, one covered by the test rule and one not. It shows the problem rather than describing it. |
 | One fact | The RAND figure, with the citation. It sizes the problem. |
 | The ask | The email address alone. No sales line. |
-| The white paper | One quiet link at the foot. |
+
+The caption runs the full width of the picture, so give it enough words to
+reach the edge.
+| The white paper | Same treatment as the RAND figure: a line of text, then the citation. |
 
 Two type sizes only: the headline, and everything else. Captions and citations
 are the one exception, and they are the same small size as each other.
