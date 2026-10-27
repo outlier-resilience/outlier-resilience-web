@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OutRes social image</title>
+<!-- Source of assets/og.png. Screenshot at 1200x630:
+     python3 -m http.server 8000, then capture http://localhost:8000/tools/og.html -->
+<style>
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../assets/plus-jakarta-sans-latin.woff2') format('woff2');
+  font-weight: 200 800;
+}
+html, body { margin: 0; width: 1200px; height: 630px; background: #06090e; overflow: hidden; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; color: #eef1f5; position: relative; }
+.lockup { position: absolute; left: 80px; top: 74px; display: flex; align-items: center; gap: 24px; }
+.lockup img { width: 248px; height: 58px; display: block; }
+.lockup span { font-size: 15px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase;
+  color: #6f7987; border-left: 1px solid #171e28; padding-left: 22px; }
+h1 { position: absolute; left: 80px; top: 196px; margin: 0; font-weight: 800; font-size: 84px;
+  letter-spacing: -.03em; line-height: 1.04; }
+p { position: absolute; left: 80px; top: 400px; margin: 0; font-size: 34px; font-weight: 600; color: #aeb7c2; }
+.rule { position: absolute; left: 78px; right: 78px; top: 513px; border-top: 1px solid #171e28; }
+.foot { position: absolute; left: 80px; right: 78px; top: 538px; display: flex; justify-content: space-between;
+  font-size: 15px; }
+.foot b { color: #52b788; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+.foot span { color: #6f7987; font-size: 17px; }
+</style>
+</head>
+<body>
+<div class="lockup"><img src="../assets/logo-wordmark.svg" alt=""><span>Outlier Resilience</span></div>
+<h1>Prove more,<br>simulate less.</h1>
+<p>Test where it might fail, and prove where it looks safe.</p>
+<div class="rule"></div>
+<div class="foot"><b>Applied research · Michigan</b><span>outlierresilience.com</span></div>
+</body>
+</html>

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OutRes: Test driving cannot prove safety</title>
-<meta name="description" content="A test campaign visits finitely many conditions, and the road presents uncountably many.">
+<title>OutRes: Prove more, simulate less</title>
+<meta name="description" content="Test where it might fail, and prove where it looks safe. Formal verification for automated driving.">
 <link rel="canonical" href="https://outlierresilience.com/">
 
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -13,8 +13,8 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://outlierresilience.com/">
 <meta property="og:site_name" content="OutRes">
-<meta property="og:title" content="OutRes: Test driving cannot prove safety">
-<meta property="og:description" content="A test campaign visits finitely many conditions, and the road presents uncountably many.">
+<meta property="og:title" content="OutRes: Prove more, simulate less">
+<meta property="og:description" content="Test where it might fail, and prove where it looks safe. Formal verification for automated driving.">
 <meta property="og:image" content="https://outlierresilience.com/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -82,7 +82,8 @@ h1 {
 
 /* the one page. Two sizes only: the headline, and everything else. */
 h1 { max-width: none; font-size: clamp(1.75rem, 4.4vw, 2.7rem); }
-.hero .lede { font-size: 1.05rem; line-height: 1.6; color: var(--ink); max-width: 62ch; }
+.hero .lede { font-size: 1.05rem; line-height: 1.6; color: var(--ink); max-width: 62ch; font-weight: 600; }
+.hero .lede + p { font-size: 1.05rem; }
 .hero figure { margin: 34px 0 0; max-width: 100%; }
 .hero figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--line); }
 .hero figcaption { margin-top: 10px; font-size: .84rem; color: var(--ink-3); max-width: none; }
@@ -114,10 +115,14 @@ footer a { color: var(--ink-3); border: 0; }
 
 <main>
   <div class="hero wrap">
-    <h1>Test driving cannot prove safety.</h1>
+    <h1>Prove more, simulate less.</h1>
 
-    <p class="lede">A test campaign visits finitely many conditions, and the road
-    presents uncountably many.</p>
+    <p class="lede">Test where it might fail, and prove where it looks safe.</p>
+
+    <p>Engineers know where a driving model is likely to fail, and they test there.
+    What testing cannot show is that everywhere else is safe: every test is one point,
+    and the road presents uncountably many. Formal verification proves it, so
+    simulation goes only where it is needed.</p>
 
     <figure>
       <img src="assets/tested-vs-untested.png" width="956" height="410"
@@ -127,17 +132,20 @@ footer a { color: var(--ink-3); border: 0; }
       right, where the model actually fails.</figcaption>
     </figure>
 
-    <p class="fact">Proving one vehicle beats a human driver would take
-    275&nbsp;million failure-free miles.
-    <cite><a href="https://www.rand.org/pubs/research_reports/RR1478.html">Kalra
-    &amp; Paddock, RAND, 2016</a></cite></p>
+    <p class="fact">In 2026 a robotaxi was recalled because it may not detect heavy
+    smoke, and a federal investigation of reduced-visibility crashes was upgraded to an
+    engineering analysis. Visibility is a range, and testing covers it only at points.
+    <cite><a href="https://static.nhtsa.gov/odi/rcl/2026/RCLRPT-26E044-2993.pdf">NHTSA
+    recall 26E-044</a> &nbsp;&middot;&nbsp;
+    <a href="https://static.nhtsa.gov/odi/inv/2026/INOA-EA26002-10023.pdf">NHTSA
+    EA26002</a></cite></p>
 
     <p class="fact">Formal verification reads the weights and proves what a
     steering model will do in conditions it never drove.
     <cite><a href="https://arxiv.org/abs/2609.10951">White paper: testing between
     the test cases</a></cite></p>
 
-    <p><a class="btn" href="mailto:outlierresilience@gmail.com">outlierresilience@gmail.com</a></p>
+    <p><a class="btn" href="mailto:outlierresilience@gmail.com?subject=The%2060-second%20demo">Ask for the 60-second demo</a></p>
   </div>
 </main>
 
