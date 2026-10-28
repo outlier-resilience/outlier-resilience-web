@@ -108,7 +108,6 @@ figure { margin: 0; max-width: 100%; }
 .legend .s-open { background: var(--open); }
 .legend .s-random { border-radius: 50%; background: var(--ink); }
 .legend .s-placed { border-radius: 50%; background: var(--bg); border: 2.5px solid var(--ink); }
-figcaption { margin-top: 10px; font-size: .9rem; color: var(--ink-2); }
 
 /* supporting facts */
 .facts { border-top: 1px solid var(--line); padding-top: 48px; padding-bottom: 56px; display: grid; gap: 36px 48px; }
@@ -118,7 +117,6 @@ figcaption { margin-top: 10px; font-size: .9rem; color: var(--ink-2); }
 .fact p { color: var(--ink); font-size: 1rem; max-width: none; }
 .fact cite { display: block; margin-top: 8px; font-style: normal; font-size: .84rem; color: var(--ink-3); }
 .fact cite a { color: var(--ink-3); border-bottom-color: var(--line); }
-.again { padding-bottom: 64px; }
 
 footer { border-top: 1px solid var(--line); padding: 24px 0 36px; font-size: .78rem; color: var(--ink-3); }
 footer .wrap { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
@@ -143,8 +141,8 @@ footer a { color: var(--ink-3); border: 0; }
 
       <p class="lede">Test where it might fail, and prove where it looks safe.</p>
 
-      <p class="who">For validation and safety-case teams at OEMs and tier-1s signing off
-      a camera-based driving stack, often one they did not write.</p>
+      <p class="who">For OEM and tier-1 validation and safety-case teams signing off
+      a camera-based driving stack, often not their own.</p>
 
       <p><a class="btn" href="mailto:outlierresilience@gmail.com?subject=The%2060-second%20demo">Email Zach for the 60-second demo</a></p>
       <p class="under">Zach Asher, founder &nbsp;&middot;&nbsp;
@@ -189,42 +187,34 @@ footer a { color: var(--ink-3); border: 0; }
         <li><i class="s-random"></i>Random test</li>
         <li><i class="s-placed"></i>Placed by the proof</li>
       </ul>
-      <figcaption>One proof covers the map. Tests go only where it is not proven.</figcaption>
     </figure>
   </div>
 
   <div class="facts wrap">
     <div class="fact">
       <h2>Proof</h2>
-      <p>Bound propagation over the network weights gives a proof, not a sample. For a
-      stated range of fog, glare and lighting, the steering output stays inside a stated
-      bound. Where the proof fails, you get the simulation worklist.
-      Scope: camera-based steering networks.
+      <p>Bound propagation over the network weights. For a stated range of fog, glare
+      and lighting, the steering output stays inside a stated bound. Unproven cells
+      become the simulation worklist.
       <cite><a href="https://arxiv.org/abs/2609.10951">White paper: testing between
       the test cases</a></cite></p>
     </div>
     <div class="fact">
       <h2>Safety case</h2>
-      <p>One proof per ODD region, entered in the safety case as a coverage
-      argument for the conditions between your test points. In ISO 21448 terms:
-      simulate known triggering conditions, prove the space between them. Run it
-      before the release gate.</p>
+      <p>One proof per ODD region goes into the safety case as a coverage argument.
+      In ISO 21448 terms: simulate known triggering conditions, prove the space
+      between them.</p>
     </div>
     <div class="fact">
       <h2>Why now</h2>
       <p>In 2026 NHTSA upgraded its reduced-visibility crash investigation of a
       driver-assistance system to an engineering analysis, and a robotaxi was recalled
-      over smoke it may miss. Visibility is a range. Testing covers it
-      at points.
+      over smoke it may miss.
       <cite><a href="https://static.nhtsa.gov/odi/inv/2026/INOA-EA26002-10023.pdf">NHTSA
       EA26002</a> &nbsp;&middot;&nbsp;
       <a href="https://static.nhtsa.gov/odi/rcl/2026/RCLRPT-26E044-2993.pdf">NHTSA
       recall 26E-044</a></cite></p>
     </div>
-  </div>
-
-  <div class="again wrap">
-    <a class="btn" href="mailto:outlierresilience@gmail.com?subject=The%2060-second%20demo">Email Zach for the demo</a>
   </div>
 </main>
 
