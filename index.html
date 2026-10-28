@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OutRes: Prove more, simulate less</title>
-<meta name="description" content="Test where it might fail, and prove where it looks safe. Formal verification for automated driving.">
+<meta name="description" content="Formal verification for automated driving. Test where it might fail, and prove where it looks safe.">
 <link rel="canonical" href="https://outlierresilience.com/">
 
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://outlierresilience.com/">
 <meta property="og:site_name" content="OutRes">
 <meta property="og:title" content="OutRes: Prove more, simulate less">
-<meta property="og:description" content="Test where it might fail, and prove where it looks safe. Formal verification for automated driving.">
+<meta property="og:description" content="Formal verification for automated driving. Test where it might fail, and prove where it looks safe.">
 <meta property="og:image" content="https://outlierresilience.com/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -37,6 +37,7 @@
   --ink-2:   #aeb7c2;
   --ink-3:   #6f7987;
   --accent:  #52b788;
+  --open:    #5e5a4e;
   --measure: 60ch;
 }
 
@@ -46,10 +47,9 @@ body {
   font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased;
 }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+html { -webkit-text-size-adjust: 100%; }
 
-.wrap { max-width: 860px; margin: 0 auto; padding: 0 26px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 26px; }
 a { color: var(--ink); text-decoration: none; border-bottom: 1px solid #2f6b50; }
 a:hover { border-bottom-color: var(--accent); }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -59,43 +59,64 @@ strong { color: var(--ink); font-weight: 600; }
 
 /* header */
 header.top { border-bottom: 1px solid var(--line); }
-header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 20px; }
-.lockup { display: flex; align-items: center; gap: 15px; border: 0; }
+header.top .wrap { display: flex; align-items: center; flex-wrap: wrap; min-height: 68px; padding-top: 14px; padding-bottom: 14px; gap: 10px 15px; }
+.lockup { display: flex; align-items: center; border: 0; }
 .lockup img { display: block; width: 140px; height: 33px; }
-.lockup span {
+.tag {
   font-size: 10px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase;
-  color: var(--ink-3); white-space: nowrap; border-left: 1px solid var(--line); padding-left: 15px;
+  color: var(--ink-3); border-left: 1px solid var(--line); padding-left: 15px; line-height: 1.5;
 }
-nav { display: flex; gap: 24px; font-size: 13px; }
-nav a { color: var(--ink-3); border: 0; }
-nav a:hover { color: var(--ink); }
-@media (max-width: 620px) { .lockup span, nav { display: none; } }
+@media (max-width: 620px) {
+  header.top .wrap { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .tag { border-left: 0; padding-left: 0; }
+  .tag .dot { display: none; }
+  .tag .place { display: block; }
+}
 
-/* hero */
-/* longhand: .hero is also .wrap, so shorthand would clobber its horizontal padding */
-.hero { padding-top: 78px; padding-bottom: 62px; }
+/* hero: words and the action on the left, the map on the right */
+.hero { padding-top: 56px; padding-bottom: 56px; display: grid; gap: 40px 56px; align-items: center; }
+@media (min-width: 980px) { .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
 h1 {
-  margin: 22px 0 20px; font-weight: 800; letter-spacing: -.03em; line-height: 1.07;
-  font-size: clamp(2rem, 5vw, 3.1rem); color: var(--ink); max-width: 18ch; text-wrap: balance;
+  margin: 0 0 18px; font-weight: 800; letter-spacing: -.03em; line-height: 1.07;
+  font-size: clamp(1.9rem, 4.4vw, 2.8rem); color: var(--ink); text-wrap: balance;
 }
-.hero p { font-size: clamp(1rem, 1.7vw, 1.13rem); line-height: 1.55; }
-
-/* the one page. Two sizes only: the headline, and everything else. */
-h1 { max-width: none; font-size: clamp(1.75rem, 4.4vw, 2.7rem); }
-.hero .lede { font-size: 1.05rem; line-height: 1.6; color: var(--ink); max-width: 62ch; font-weight: 600; }
-.hero .lede + p { font-size: 1.05rem; }
-.hero figure { margin: 34px 0 0; max-width: 100%; }
-.hero figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--line); }
-.hero figcaption { margin-top: 10px; font-size: .84rem; color: var(--ink-3); max-width: none; }
-.hero .fact { margin-top: 34px; padding-left: 20px; border-left: 2px solid #2f6b50; font-size: 1.05rem; color: var(--ink); }
-.hero .fact cite { display: block; margin-top: 6px; font-style: normal; font-size: .84rem; color: var(--ink-3); }
-.hero .fact cite a { color: var(--ink-3); border-bottom-color: var(--line); }
+.lede { font-size: 1.1rem; line-height: 1.55; color: var(--ink); font-weight: 600; }
+.who { font-size: 1.02rem; }
 
 .btn {
-  display: inline-block; margin-top: 30px; padding: 12px 22px; background: var(--accent);
-  color: #06090e; border: 0; border-radius: 5px; font-weight: 700; font-size: .92rem;
+  display: inline-block; margin-top: 10px; padding: 13px 22px; background: var(--accent);
+  color: #06090e; border: 0; border-radius: 5px; font-weight: 700; font-size: .95rem;
 }
 .btn:hover { background: #6bcb9c; }
+.under { margin-top: 12px; font-size: .84rem; color: var(--ink-3); }
+.under a { color: var(--ink-3); border-bottom-color: var(--line); }
+
+/* the proof map */
+figure { margin: 0; max-width: 100%; }
+.map { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); }
+.map text { font-family: inherit; font-size: 15px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; fill: var(--ink-3); }
+.map .cell-safe { fill: var(--accent); opacity: .85; }
+.map .cell-open { fill: var(--open); }
+.map .gridlines { stroke: var(--bg); stroke-width: 1.5; fill: none; }
+.map .random { fill: var(--ink); stroke: var(--bg); stroke-width: 2; }
+.map .placed { fill: var(--bg); stroke: var(--ink); stroke-width: 3; }
+@media (max-width: 979px) { .map text { font-size: 21px; } }
+.legend { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: .84rem; color: var(--ink-2); }
+.legend li { display: flex; align-items: center; gap: 8px; }
+.legend i { display: inline-block; width: 13px; height: 13px; border-radius: 2px; flex: none; }
+.legend .s-safe { background: var(--accent); opacity: .85; }
+.legend .s-open { background: var(--open); }
+.legend .s-random { border-radius: 50%; background: var(--ink); }
+.legend .s-placed { border-radius: 50%; background: var(--bg); border: 2.5px solid var(--ink); }
+
+/* supporting facts */
+.facts { border-top: 1px solid var(--line); padding-top: 48px; padding-bottom: 56px; display: grid; gap: 36px 48px; }
+@media (min-width: 980px) { .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.fact { padding-left: 20px; border-left: 2px solid #2f6b50; }
+.fact h2 { margin: 0 0 10px; font-size: 10px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--ink-3); }
+.fact p { color: var(--ink); font-size: 1rem; max-width: none; }
+.fact cite { display: block; margin-top: 8px; font-style: normal; font-size: .84rem; color: var(--ink-3); }
+.fact cite a { color: var(--ink-3); border-bottom-color: var(--line); }
 
 footer { border-top: 1px solid var(--line); padding: 24px 0 36px; font-size: .78rem; color: var(--ink-3); }
 footer .wrap { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
@@ -108,44 +129,92 @@ footer a { color: var(--ink-3); border: 0; }
   <div class="wrap">
     <a class="lockup" href="/" aria-label="OutRes, home">
       <img src="assets/logo-wordmark.svg" width="140" height="33" alt="OutRes">
-      <span>Outlier Resilience</span>
     </a>
+    <span class="tag">Formal verification for automated driving<span class="dot"> &middot; </span><span class="place">Michigan</span></span>
   </div>
 </header>
 
 <main>
   <div class="hero wrap">
-    <h1>Prove more, simulate less.</h1>
+    <div>
+      <h1>Prove more, simulate less.</h1>
 
-    <p class="lede">Test where it might fail, and prove where it looks safe.</p>
+      <p class="lede">Test where it might fail, and prove where it looks safe.</p>
 
-    <p>Engineers know where a driving model is likely to fail, and they test there.
-    What testing cannot show is that everywhere else is safe: every test is one point,
-    and the road presents uncountably many. Formal verification proves it, so
-    simulation goes only where it is needed.</p>
+      <p class="who">For OEM and tier-1 validation and safety-case teams signing off
+      a camera-based driving stack, often not their own.</p>
+
+      <p><a class="btn" href="mailto:outlierresilience@gmail.com?subject=The%2060-second%20demo">Email Zach for the 60-second demo</a></p>
+      <p class="under">Zach Asher, founder &nbsp;&middot;&nbsp;
+      <a href="mailto:outlierresilience@gmail.com">outlierresilience@gmail.com</a></p>
+    </div>
 
     <figure>
-      <img src="assets/tested-vs-untested.png" width="956" height="410"
-           alt="Two camera frames of the same road. The left frame, in darkness, is covered by the test rule. The right frame, at dusk, is not.">
-      <figcaption>The same road under two lighting conditions. A test rule that
-      samples the extremes covers the frame on the left and misses the one on the
-      right, where the model actually fails.</figcaption>
+      <svg class="map" viewBox="0 0 640 436" role="img" aria-labelledby="map-t map-d">
+        <title id="map-t">Schematic proof map</title>
+        <desc id="map-d">A grid of fog and glare conditions. Most cells are proven safe. A band at dense fog and high glare is not proven, and the placed tests go there. Random tests land mostly in the proven area by chance; one lands in the band. Schematic, not a result.</desc>
+        <!-- plot: x 64..624 (16 cols of 35), y 34..394 (8 rows of 45). Rows run glare full (top) to none (bottom); columns run fog dense (left) to clear (right). -->
+        <g>
+          <rect class="cell-open" x="64"  y="34"  width="245" height="45"/><rect class="cell-safe" x="309" y="34"  width="315" height="45"/>
+          <rect class="cell-open" x="64"  y="79"  width="210" height="45"/><rect class="cell-safe" x="274" y="79"  width="350" height="45"/>
+          <rect class="cell-open" x="64"  y="124" width="210" height="45"/><rect class="cell-safe" x="274" y="124" width="350" height="45"/>
+          <rect class="cell-open" x="64"  y="169" width="175" height="45"/><rect class="cell-safe" x="239" y="169" width="385" height="45"/>
+          <rect class="cell-open" x="64"  y="214" width="140" height="45"/><rect class="cell-safe" x="204" y="214" width="420" height="45"/>
+          <rect class="cell-open" x="64"  y="259" width="140" height="45"/><rect class="cell-safe" x="204" y="259" width="420" height="45"/>
+          <rect class="cell-open" x="64"  y="304" width="105" height="45"/><rect class="cell-safe" x="169" y="304" width="455" height="45"/>
+          <rect class="cell-open" x="64"  y="349" width="70"  height="45"/><rect class="cell-safe" x="134" y="349" width="490" height="45"/>
+        </g>
+        <path class="gridlines" d="M99 34V394M134 34V394M169 34V394M204 34V394M239 34V394M274 34V394M309 34V394M344 34V394M379 34V394M414 34V394M449 34V394M484 34V394M519 34V394M554 34V394M589 34V394M64 79H624M64 124H624M64 169H624M64 214H624M64 259H624M64 304H624M64 349H624"/>
+        <!-- random tests: filled dots, scattered, mostly in the proven area by chance -->
+        <g class="random">
+          <circle cx="362" cy="282" r="6"/><circle cx="467" cy="102" r="6"/><circle cx="571" cy="326" r="6"/>
+          <circle cx="414" cy="192" r="6"/><circle cx="606" cy="58" r="6"/><circle cx="519" cy="240" r="6"/>
+          <circle cx="118" cy="326" r="6"/><circle cx="256" cy="310" r="6"/><circle cx="449" cy="52" r="6"/>
+          <circle cx="536" cy="380" r="6"/>
+        </g>
+        <!-- placed tests: rings, in and along the unproven band -->
+        <g class="placed">
+          <circle cx="100" cy="60" r="7"/><circle cx="222" cy="147" r="7"/><circle cx="152" cy="282" r="7"/>
+          <circle cx="257" cy="192" r="7"/><circle cx="112" cy="372" r="7"/><circle cx="292" cy="100" r="7"/>
+        </g>
+        <text x="344" y="424" text-anchor="middle">Fog: dense to clear</text>
+        <text transform="translate(28 214) rotate(-90)" text-anchor="middle">Glare: none to full</text>
+        <text x="624" y="22" text-anchor="end">Schematic, not a result</text>
+      </svg>
+      <ul class="legend" aria-label="Legend">
+        <li><i class="s-safe"></i>Proven safe. No test needed.</li>
+        <li><i class="s-open"></i>Not proven. Test here.</li>
+        <li><i class="s-random"></i>Random test</li>
+        <li><i class="s-placed"></i>Placed by the proof</li>
+      </ul>
     </figure>
+  </div>
 
-    <p class="fact">In 2026 a robotaxi was recalled because it may not detect heavy
-    smoke, and a federal investigation of reduced-visibility crashes was upgraded to an
-    engineering analysis. Visibility is a range, and testing covers it only at points.
-    <cite><a href="https://static.nhtsa.gov/odi/rcl/2026/RCLRPT-26E044-2993.pdf">NHTSA
-    recall 26E-044</a> &nbsp;&middot;&nbsp;
-    <a href="https://static.nhtsa.gov/odi/inv/2026/INOA-EA26002-10023.pdf">NHTSA
-    EA26002</a></cite></p>
-
-    <p class="fact">Formal verification reads the weights and proves what a
-    steering model will do in conditions it never drove.
-    <cite><a href="https://arxiv.org/abs/2609.10951">White paper: testing between
-    the test cases</a></cite></p>
-
-    <p><a class="btn" href="mailto:outlierresilience@gmail.com?subject=The%2060-second%20demo">Ask for the 60-second demo</a></p>
+  <div class="facts wrap">
+    <div class="fact">
+      <h2>Proof</h2>
+      <p>Bound propagation over the network weights. For a stated range of fog, glare
+      and lighting, the steering output stays inside a stated bound. Unproven cells
+      become the simulation worklist.
+      <cite><a href="https://arxiv.org/abs/2609.10951">White paper: testing between
+      the test cases</a></cite></p>
+    </div>
+    <div class="fact">
+      <h2>Safety case</h2>
+      <p>One proof per ODD region goes into the safety case as a coverage argument.
+      In ISO 21448 terms: simulate known triggering conditions, prove the space
+      between them.</p>
+    </div>
+    <div class="fact">
+      <h2>Why now</h2>
+      <p>In 2026 NHTSA upgraded its reduced-visibility crash investigation of a
+      driver-assistance system to an engineering analysis, and a robotaxi was recalled
+      over smoke it may miss.
+      <cite><a href="https://static.nhtsa.gov/odi/inv/2026/INOA-EA26002-10023.pdf">NHTSA
+      EA26002</a> &nbsp;&middot;&nbsp;
+      <a href="https://static.nhtsa.gov/odi/rcl/2026/RCLRPT-26E044-2993.pdf">NHTSA
+      recall 26E-044</a></cite></p>
+    </div>
   </div>
 </main>
 
